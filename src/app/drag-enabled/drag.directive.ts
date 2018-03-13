@@ -9,6 +9,11 @@ import {
 } from '@angular/core';
 import { DataTransfer } from './datatransfer';
 
+export interface DragEvent {
+    medium: any,
+    node: HTMLElement
+}
+
 @Directive({
     selector: '[dragEnabled]',
     host: {
@@ -46,27 +51,33 @@ export class DragDirective {
 
     @HostListener('dragstart', ['$event']) 
     dragStart(event) {
+        const dragEvent: DragEvent = {
+            medium: this.medium,
+            node: this.el.nativeElement
+        }
         event.stopPropagation();
-        if (this.dragEnabled(this.medium)) {
+        if (this.dragEnabled(dragEvent)) {
             event.dataTransfer.effectAllowed = this.dragEffect;
             event.dataTransfer.setData("makeItTick","true");// this is needed just to make drag/drop event trigger.
 
-            this.dataTransfer.setData("source", this.medium);
-            this.onDragStart.emit(this.medium);
+            this.dataTransfer.setData("source", dragEvent);
+            this.onDragStart.emit(dragEvent);
         }
     }
     
     @HostListener('drag', ['$event']) 
     drag(event) {
-        if (this.dragEnabled(this.medium)) {
-            this.onDrag.emit(this.medium);
+        const dragEvent: DragEvent = this.dataTransfer.getData("source");
+        if (this.dragEnabled(dragEvent)) {
+            this.onDrag.emit(dragEvent);
         }
     }
     
     @HostListener('dragend', ['$event']) 
     dragEnd(event) {
         event.stopPropagation();	
-        this.onDragEnd.emit(this.medium);
+        const dragEvent: DragEvent = this.dataTransfer.getData("source");
+        this.onDragEnd.emit(dragEvent);
         this.renderer.setElementClass(this.el.nativeElement, "drag-over", false);
     }
 }

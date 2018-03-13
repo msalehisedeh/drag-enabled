@@ -11,8 +11,14 @@ import {
 import { DataTransfer } from './datatransfer';
 
 export interface DropEvent {
-    source: any,
-    destination: any
+    source: {
+        medium: any,
+        node: HTMLElement
+    },
+    destination: {
+        medium: any,
+        node: HTMLElement
+    }
 }
 
 @Directive({
@@ -46,14 +52,22 @@ export class DropDirective {
         private renderer: Renderer,
         private el: ElementRef
     ) {}
-            
+    
+	private createDropEvent() {
+		return {
+            source: this.dataTransfer.getData("source"),
+            destination: {
+                medium: this.medium,
+                node: this.el.nativeElement
+            }
+		};
+	}
+	
     @HostListener('drop', ['$event'])
     drop(event) {
         event.preventDefault();
-        const dropEvent = {
-            source: this.dataTransfer.getData("source"),
-            destination: this.medium
-        }
+        const dropEvent = this.createDropEvent();
+
         this.renderer.setElementClass(this.el.nativeElement, "drag-over", false);
 
         if (this.dropEnabled(dropEvent)) {
@@ -64,10 +78,8 @@ export class DropDirective {
     @HostListener('dragenter', ['$event']) 
     dragEnter(event) {
         event.preventDefault();
-        const dropEvent = {
-            source: this.dataTransfer.getData("source"),
-            destination: this.medium
-        }
+        const dropEvent = this.createDropEvent();
+
         if (this.dropEnabled(dropEvent)) {
             event.dataTransfer.dropEffect = this.dropEffect;
 
@@ -88,10 +100,8 @@ export class DropDirective {
     
     @HostListener('dragover', ['$event']) 
     dragOver(event) {
-        const dropEvent = {
-            source: this.dataTransfer.getData("source"),
-            destination: this.medium
-        }
+        const dropEvent = this.createDropEvent();
+
         if (this.dropEnabled(dropEvent)) {
             event.preventDefault();
             this.renderer.setElementClass(this.el.nativeElement, "drag-over", true);

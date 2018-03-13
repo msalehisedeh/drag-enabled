@@ -12,18 +12,18 @@ export class AppComponent {
 
   }
   
-  	dragEnabled(medium) {
-		return medium.dragable;
+  	dragEnabled(event) {
+		return event.medium.dragable;
 	}
 	dropEnabled(event) {
-		return event.destination.dragable;
+		return event.destination.medium.dragable;
 	}
 	onDragStart(event){
 	}
 	onDragEnd(event){
 	}
 	onDrop(event){
-		// this.swapColumns(event.source.key, event.destination.key);
+		// this.swapColumns(event.source.medium, event.source.node, event.destination.medium, event.destination.node);
 	}
 
 }

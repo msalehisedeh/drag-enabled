@@ -1,5 +1,9 @@
 import { ElementRef, EventEmitter, Renderer } from '@angular/core';
 import { DataTransfer } from './datatransfer';
+export interface DragEvent {
+    medium: any;
+    node: HTMLElement;
+}
 export declare class DragDirective {
     private dataTransfer;
     private renderer;
