@@ -4,8 +4,8 @@ export interface DropEvent {
     source: {
         medium: any;
         node: HTMLElement;
-        cursorX?: number;
-        cursorY?: number;
+        clientX?: number;
+        clientY?: number;
         offset?: {
             x: number;
             y: number;
@@ -14,8 +14,8 @@ export interface DropEvent {
     destination: {
         medium: any;
         node: HTMLElement;
-        cursorX?: number;
-        cursorY?: number;
+        clientX?: number;
+        clientY?: number;
     };
 }
 export declare class DropDirective {

@@ -14,8 +14,8 @@ export interface DropEvent {
     source: {
         medium: any,
         node: HTMLElement,
-        cursorX?: number,
-        cursorY?: number,
+        clientX?: number,
+        clientY?: number,
         offset?: {
             x: number, 
             y: number
@@ -24,8 +24,8 @@ export interface DropEvent {
     destination: {
         medium: any,
         node: HTMLElement,
-        cursorX?: number,
-        cursorY?: number
+        clientX?: number,
+        clientY?: number
     }
 }
 
@@ -67,8 +67,8 @@ export class DropDirective {
             destination: {
                 medium: this.medium,
                 node: this.el.nativeElement,
-                cursorX: event.pageX ? event.pageX : event.clientX, // + document.body.scrollLeft + document.documentElement.scrollLeft
-                cursorY: event.pageY ? event.pageY : event.clientY, // + document.body.scrollTop + document.documentElement.scrollTop
+                clientX: event.clientX,
+                clientY: event.clientY
             }
 		};
 	}

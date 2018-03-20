@@ -6,16 +6,16 @@ Have you looked at all the other Angular drag and drop libraries and noted they 
 
 This library provides Angular 4 directives that enables you to have any html tag drag drop enabled within your component control just by adding DragDropModule into your AppModule.
 
-You will be able to pass a medium object to the directives. The meduim will supposedly have or know of certain things that can help your code make a decision on allowing a drag or a drop to take place. It could be a reference to a node or a structure in your code. At the start, a "dragEnabled" requst with a DragEvent will be sent to your component. if returned true, dragging begins. At the end of drag operation, an event with the source medium, source HTMLElement, destination medium, and destination HTMLElement will be sent to your component to perform any action necessary.
+You will be able to pass a medium object to the directives. The medium will supposedly have or know of certain things that can help your code make a decision on allowing a drag or a drop to take place. It could be a reference to a node or a structure in your code. At the start, a "dragEnabled" requst with a DragEvent will be sent to your component. if returned true, dragging begins. At the end of drag operation, an event with the source medium, source HTMLElement, destination medium, and destination HTMLElement will be sent to your component to perform any action necessary.
 
-# Version 0.1.1
-Turned out that this library can become a lot more usefull if i pass the event location as well. So here it is... Made the new attributes optional to make it compatible for those who are using previous version if they get an accidental upgrade through npm install... cursorX, cursorY names are chosen to avoid confusion over browser compatibility between Mozilla, and other browsers..
+# Version 0.1.2
+Turned out that this library can become a lot more useful if I pass the event location as well. So here it is... Made the new attributes optional to make it compatible for those who are using previous version if they get an accidental upgrade through npm install...
 ```
 export interface DragEvent {
     medium: any,
     node: HTMLElement,
-    cursorX?: number,
-    cursorY?: number,
+    clientX?: number,
+    clientY?: number,
     offset?: {
         x: number, 
         y: number
@@ -26,8 +26,8 @@ export interface DropEvent {
     source: {
 		medium: any,
 		node: HTMLElement,
-		cursorX?: number,
-		cursorY?: number,
+		clientX?: number,
+		clientY?: number,
 		offset?: {
 			x: number, 
 			y: number
@@ -36,8 +36,8 @@ export interface DropEvent {
     destination: {
         medium: any,
         node: HTMLElement,
-		cursorX?: number,
-		cursorY?: number
+		clientX?: number,
+		clientY?: number
     }
 }
 ```

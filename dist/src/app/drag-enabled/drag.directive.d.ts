@@ -3,8 +3,8 @@ import { DataTransfer } from './datatransfer';
 export interface DragEvent {
     medium: any;
     node: HTMLElement;
-    cursorX?: number;
-    cursorY?: number;
+    clientX?: number;
+    clientY?: number;
     offset?: {
         x: number;
         y: number;
@@ -16,7 +16,7 @@ export declare class DragDirective {
     private el;
     medium: any;
     dragEffect: string;
-    dragEnabled: (medium: any) => boolean;
+    dragEnabled: (event: any) => boolean;
     onDragStart: EventEmitter<any>;
     onDragEnd: EventEmitter<any>;
     onDrag: EventEmitter<any>;

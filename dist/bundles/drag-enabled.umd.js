@@ -38,8 +38,8 @@ var DropDirective = /** @class */ (function () {
             destination: {
                 medium: this.medium,
                 node: this.el.nativeElement,
-                cursorX: event.pageX ? event.pageX : event.clientX,
-                cursorY: event.pageY ? event.pageY : event.clientY,
+                clientX: event.clientX,
+                clientY: event.clientY
             }
         };
     };
@@ -110,7 +110,7 @@ var DragDirective = /** @class */ (function () {
         this.renderer = renderer;
         this.el = el;
         this.dragEffect = "move";
-        this.dragEnabled = function (medium) { return true; };
+        this.dragEnabled = function (event) { return true; };
         this.onDragStart = new core.EventEmitter();
         this.onDragEnd = new core.EventEmitter();
         this.onDrag = new core.EventEmitter();
@@ -118,16 +118,14 @@ var DragDirective = /** @class */ (function () {
     DragDirective.prototype.dragStart = function (event) {
         event.stopPropagation();
         var rect = this.el.nativeElement.getBoundingClientRect();
-        var X = event.pageX ? event.pageX : event.clientX;
-        var Y = event.pageY ? event.pageY : event.clientY;
         var dragEvent = {
             medium: this.medium,
             node: this.el.nativeElement,
-            cursorX: X,
-            cursorY: Y,
+            clientX: event.clientX,
+            clientY: event.clientY,
             offset: {
-                x: X - rect.left,
-                y: Y - rect.top
+                x: event.clientX - rect.left,
+                y: event.clientY - rect.top
             }
         };
         if (this.dragEnabled(dragEvent)) {
@@ -139,8 +137,8 @@ var DragDirective = /** @class */ (function () {
     };
     DragDirective.prototype.drag = function (event) {
         var dragEvent = this.dataTransfer.getData("source");
-        dragEvent.cursorX = event.pageX ? event.pageX : event.clientX;
-        dragEvent.cursorY = event.pageY ? event.pageY : event.clientY;
+        dragEvent.clientX = event.clientX;
+        dragEvent.clientY = event.clientY;
         if (this.dragEnabled(dragEvent)) {
             this.onDrag.emit(dragEvent);
         }
@@ -148,8 +146,8 @@ var DragDirective = /** @class */ (function () {
     DragDirective.prototype.dragEnd = function (event) {
         event.stopPropagation();
         var dragEvent = this.dataTransfer.getData("source");
-        dragEvent.cursorX = event.pageX ? event.pageX : event.clientX;
-        dragEvent.cursorY = event.pageY ? event.pageY : event.clientY;
+        dragEvent.clientX = event.clientX;
+        dragEvent.clientY = event.clientY;
         this.onDragEnd.emit(dragEvent);
         this.renderer.setElementClass(this.el.nativeElement, "drag-over", false);
     };

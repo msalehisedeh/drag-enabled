@@ -12,8 +12,8 @@ import { DataTransfer } from './datatransfer';
 export interface DragEvent {
     medium: any,
     node: HTMLElement,
-    cursorX?: number,
-    cursorY?: number,
+    clientX?: number,
+    clientY?: number,
     offset?: {
         x: number, 
         y: number
@@ -35,7 +35,7 @@ export class DragDirective {
     dragEffect = "move";
     
     @Input("dragEnabled")
-    dragEnabled = (medium) => true;
+    dragEnabled = (event) => true;
     
     @Output()
     onDragStart: EventEmitter<any> = new EventEmitter();
@@ -60,16 +60,14 @@ export class DragDirective {
         event.stopPropagation();
 
         const rect = this.el.nativeElement.getBoundingClientRect();
-        const X = event.pageX ? event.pageX : event.clientX;// + document.body.scrollLeft + document.documentElement.scrollLeft
-        const Y = event.pageY ? event.pageY : event.clientY;// + document.body.scrollTop + document.documentElement.scrollTop
         const dragEvent: DragEvent = {
             medium: this.medium,
             node: this.el.nativeElement,
-            cursorX: X,
-            cursorY: Y,
+            clientX: event.clientX,
+            clientY: event.clientY,
             offset: {
-                x: X - rect.left, 
-                y: Y - rect.top
+                x: event.clientX - rect.left, 
+                y: event.clientY - rect.top
             }
         }
         if (this.dragEnabled(dragEvent)) {
@@ -85,8 +83,8 @@ export class DragDirective {
     drag(event) {
         const dragEvent: DragEvent = this.dataTransfer.getData("source");
 
-        dragEvent.cursorX = event.pageX ? event.pageX : event.clientX;// + document.body.scrollLeft + document.documentElement.scrollLeft
-        dragEvent.cursorY = event.pageY ? event.pageY : event.clientY;// + document.body.scrollTop + document.documentElement.scrollTop
+        dragEvent.clientX = event.clientX;
+        dragEvent.clientY = event.clientY;
         
         if (this.dragEnabled(dragEvent)) {
             this.onDrag.emit(dragEvent);
@@ -99,8 +97,8 @@ export class DragDirective {
 
         const dragEvent: DragEvent = this.dataTransfer.getData("source");
 
-        dragEvent.cursorX = event.pageX ? event.pageX : event.clientX;// + document.body.scrollLeft + document.documentElement.scrollLeft
-        dragEvent.cursorY = event.pageY ? event.pageY : event.clientY;// + document.body.scrollTop + document.documentElement.scrollTop
+        dragEvent.clientX = event.clientX;
+        dragEvent.clientY = event.clientY;
         
         this.onDragEnd.emit(dragEvent);
         this.renderer.setElementClass(this.el.nativeElement, "drag-over", false);

@@ -66,9 +66,8 @@ class DropDirective {
             destination: {
                 medium: this.medium,
                 node: this.el.nativeElement,
-                cursorX: event.pageX ? event.pageX : event.clientX,
-                // + document.body.scrollLeft + document.documentElement.scrollLeft
-                cursorY: event.pageY ? event.pageY : event.clientY,
+                clientX: event.clientX,
+                clientY: event.clientY
             }
         };
     }
@@ -169,7 +168,7 @@ class DragDirective {
         this.renderer = renderer;
         this.el = el;
         this.dragEffect = "move";
-        this.dragEnabled = (medium) => true;
+        this.dragEnabled = (event) => true;
         this.onDragStart = new EventEmitter();
         this.onDragEnd = new EventEmitter();
         this.onDrag = new EventEmitter();
@@ -181,16 +180,14 @@ class DragDirective {
     dragStart(event) {
         event.stopPropagation();
         const /** @type {?} */ rect = this.el.nativeElement.getBoundingClientRect();
-        const /** @type {?} */ X = event.pageX ? event.pageX : event.clientX; // + document.body.scrollLeft + document.documentElement.scrollLeft
-        const /** @type {?} */ Y = event.pageY ? event.pageY : event.clientY; // + document.body.scrollTop + document.documentElement.scrollTop
         const /** @type {?} */ dragEvent = {
             medium: this.medium,
             node: this.el.nativeElement,
-            cursorX: X,
-            cursorY: Y,
+            clientX: event.clientX,
+            clientY: event.clientY,
             offset: {
-                x: X - rect.left,
-                y: Y - rect.top
+                x: event.clientX - rect.left,
+                y: event.clientY - rect.top
             }
         };
         if (this.dragEnabled(dragEvent)) {
@@ -206,8 +203,8 @@ class DragDirective {
      */
     drag(event) {
         const /** @type {?} */ dragEvent = this.dataTransfer.getData("source");
-        dragEvent.cursorX = event.pageX ? event.pageX : event.clientX; // + document.body.scrollLeft + document.documentElement.scrollLeft
-        dragEvent.cursorY = event.pageY ? event.pageY : event.clientY; // + document.body.scrollTop + document.documentElement.scrollTop
+        dragEvent.clientX = event.clientX;
+        dragEvent.clientY = event.clientY;
         if (this.dragEnabled(dragEvent)) {
             this.onDrag.emit(dragEvent);
         }
@@ -219,8 +216,8 @@ class DragDirective {
     dragEnd(event) {
         event.stopPropagation();
         const /** @type {?} */ dragEvent = this.dataTransfer.getData("source");
-        dragEvent.cursorX = event.pageX ? event.pageX : event.clientX; // + document.body.scrollLeft + document.documentElement.scrollLeft
-        dragEvent.cursorY = event.pageY ? event.pageY : event.clientY; // + document.body.scrollTop + document.documentElement.scrollTop
+        dragEvent.clientX = event.clientX;
+        dragEvent.clientY = event.clientY;
         this.onDragEnd.emit(dragEvent);
         this.renderer.setElementClass(this.el.nativeElement, "drag-over", false);
     }
