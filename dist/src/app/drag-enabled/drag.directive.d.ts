@@ -3,8 +3,8 @@ import { DataTransfer } from './datatransfer';
 export interface DragEvent {
     medium: any;
     node: HTMLElement;
-    clientX?: number;
-    clientY?: number;
+    cursorX?: number;
+    cursorY?: number;
     offset?: {
         x: number;
         y: number;

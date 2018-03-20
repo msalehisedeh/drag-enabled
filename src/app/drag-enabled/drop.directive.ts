@@ -14,8 +14,8 @@ export interface DropEvent {
     source: {
         medium: any,
         node: HTMLElement,
-        clientX?: number,
-        clientY?: number,
+        cursorX?: number,
+        cursorY?: number,
         offset?: {
             x: number, 
             y: number
@@ -24,8 +24,8 @@ export interface DropEvent {
     destination: {
         medium: any,
         node: HTMLElement,
-        clientX?: number,
-        clientY?: number
+        cursorX?: number,
+        cursorY?: number
     }
 }
 
@@ -61,18 +61,18 @@ export class DropDirective {
         private el: ElementRef
     ) {}
     
-	private createDropEvent(event) {
+	private createDropEvent(event): DropEvent {
 		return {
             source: this.dataTransfer.getData("source"),
             destination: {
                 medium: this.medium,
                 node: this.el.nativeElement,
-                clientX: event.clientX,
-                clientY: event.clientY,
+                cursorX: event.pageX ? event.pageX : event.clientX, // + document.body.scrollLeft + document.documentElement.scrollLeft
+                cursorY: event.pageY ? event.pageY : event.clientY, // + document.body.scrollTop + document.documentElement.scrollTop
             }
 		};
 	}
-	
+
     @HostListener('drop', ['$event'])
     drop(event) {
         event.preventDefault();

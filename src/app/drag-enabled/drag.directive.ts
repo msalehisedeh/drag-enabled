@@ -12,8 +12,8 @@ import { DataTransfer } from './datatransfer';
 export interface DragEvent {
     medium: any,
     node: HTMLElement,
-    clientX?: number,
-    clientY?: number,
+    cursorX?: number,
+    cursorY?: number,
     offset?: {
         x: number, 
         y: number
@@ -60,14 +60,16 @@ export class DragDirective {
         event.stopPropagation();
 
         const rect = this.el.nativeElement.getBoundingClientRect();
+        const X = event.pageX ? event.pageX : event.clientX;// + document.body.scrollLeft + document.documentElement.scrollLeft
+        const Y = event.pageY ? event.pageY : event.clientY;// + document.body.scrollTop + document.documentElement.scrollTop
         const dragEvent: DragEvent = {
             medium: this.medium,
             node: this.el.nativeElement,
-            clientX: event.clientX,
-            clientY: event.clientY,
+            cursorX: X,
+            cursorY: Y,
             offset: {
-                x: event.clientX-rect.left, 
-                y:event.clientY-rect.top
+                x: X - rect.left, 
+                y: Y - rect.top
             }
         }
         if (this.dragEnabled(dragEvent)) {
@@ -83,8 +85,8 @@ export class DragDirective {
     drag(event) {
         const dragEvent: DragEvent = this.dataTransfer.getData("source");
 
-        dragEvent.clientX = event.clientX;
-        dragEvent.clientY = event.clientY;
+        dragEvent.cursorX = event.pageX ? event.pageX : event.clientX;// + document.body.scrollLeft + document.documentElement.scrollLeft
+        dragEvent.cursorY = event.pageY ? event.pageY : event.clientY;// + document.body.scrollTop + document.documentElement.scrollTop
         
         if (this.dragEnabled(dragEvent)) {
             this.onDrag.emit(dragEvent);
@@ -97,8 +99,8 @@ export class DragDirective {
 
         const dragEvent: DragEvent = this.dataTransfer.getData("source");
 
-        dragEvent.clientX = event.clientX;
-        dragEvent.clientY = event.clientY;
+        dragEvent.cursorX = event.pageX ? event.pageX : event.clientX;// + document.body.scrollLeft + document.documentElement.scrollLeft
+        dragEvent.cursorY = event.pageY ? event.pageY : event.clientY;// + document.body.scrollTop + document.documentElement.scrollTop
         
         this.onDragEnd.emit(dragEvent);
         this.renderer.setElementClass(this.el.nativeElement, "drag-over", false);
