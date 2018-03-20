@@ -4,10 +4,18 @@ export interface DropEvent {
     source: {
         medium: any;
         node: HTMLElement;
+        clientX?: number;
+        clientY?: number;
+        offset?: {
+            x: number;
+            y: number;
+        };
     };
     destination: {
         medium: any;
         node: HTMLElement;
+        clientX?: number;
+        clientY?: number;
     };
 }
 export declare class DropDirective {
@@ -22,7 +30,7 @@ export declare class DropDirective {
     onDrop: EventEmitter<any>;
     onDragOver: EventEmitter<any>;
     constructor(dataTransfer: DataTransfer, renderer: Renderer, el: ElementRef);
-    private createDropEvent();
+    private createDropEvent(event);
     drop(event: any): void;
     dragEnter(event: any): void;
     dragLeave(event: any): void;

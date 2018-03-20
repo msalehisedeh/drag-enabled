@@ -32,18 +32,20 @@ var DropDirective = /** @class */ (function () {
         this.onDrop = new core.EventEmitter();
         this.onDragOver = new core.EventEmitter();
     }
-    DropDirective.prototype.createDropEvent = function () {
+    DropDirective.prototype.createDropEvent = function (event) {
         return {
             source: this.dataTransfer.getData("source"),
             destination: {
                 medium: this.medium,
-                node: this.el.nativeElement
+                node: this.el.nativeElement,
+                clientX: event.clientX,
+                clientY: event.clientY,
             }
         };
     };
     DropDirective.prototype.drop = function (event) {
         event.preventDefault();
-        var dropEvent = this.createDropEvent();
+        var dropEvent = this.createDropEvent(event);
         this.renderer.setElementClass(this.el.nativeElement, "drag-over", false);
         if (this.dropEnabled(dropEvent)) {
             this.onDrop.emit(dropEvent);
@@ -51,7 +53,7 @@ var DropDirective = /** @class */ (function () {
     };
     DropDirective.prototype.dragEnter = function (event) {
         event.preventDefault();
-        var dropEvent = this.createDropEvent();
+        var dropEvent = this.createDropEvent(event);
         if (this.dropEnabled(dropEvent)) {
             event.dataTransfer.dropEffect = this.dropEffect;
             this.renderer.setElementClass(this.el.nativeElement, "drag-over", true);
@@ -67,7 +69,7 @@ var DropDirective = /** @class */ (function () {
         this.onDragLeave.emit(event);
     };
     DropDirective.prototype.dragOver = function (event) {
-        var dropEvent = this.createDropEvent();
+        var dropEvent = this.createDropEvent(event);
         if (this.dropEnabled(dropEvent)) {
             event.preventDefault();
             this.renderer.setElementClass(this.el.nativeElement, "drag-over", true);
@@ -114,11 +116,18 @@ var DragDirective = /** @class */ (function () {
         this.onDrag = new core.EventEmitter();
     }
     DragDirective.prototype.dragStart = function (event) {
+        event.stopPropagation();
+        var rect = this.el.nativeElement.getBoundingClientRect();
         var dragEvent = {
             medium: this.medium,
-            node: this.el.nativeElement
+            node: this.el.nativeElement,
+            clientX: event.clientX,
+            clientY: event.clientY,
+            offset: {
+                x: event.clientX - rect.left,
+                y: event.clientY - rect.top
+            }
         };
-        event.stopPropagation();
         if (this.dragEnabled(dragEvent)) {
             event.dataTransfer.effectAllowed = this.dragEffect;
             event.dataTransfer.setData("makeItTick", "true");
@@ -128,6 +137,8 @@ var DragDirective = /** @class */ (function () {
     };
     DragDirective.prototype.drag = function (event) {
         var dragEvent = this.dataTransfer.getData("source");
+        dragEvent.clientX = event.clientX;
+        dragEvent.clientY = event.clientY;
         if (this.dragEnabled(dragEvent)) {
             this.onDrag.emit(dragEvent);
         }
@@ -135,6 +146,8 @@ var DragDirective = /** @class */ (function () {
     DragDirective.prototype.dragEnd = function (event) {
         event.stopPropagation();
         var dragEvent = this.dataTransfer.getData("source");
+        dragEvent.clientX = event.clientX;
+        dragEvent.clientY = event.clientY;
         this.onDragEnd.emit(dragEvent);
         this.renderer.setElementClass(this.el.nativeElement, "drag-over", false);
     };

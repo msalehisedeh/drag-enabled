@@ -3,6 +3,12 @@ import { DataTransfer } from './datatransfer';
 export interface DragEvent {
     medium: any;
     node: HTMLElement;
+    clientX?: number;
+    clientY?: number;
+    offset?: {
+        x: number;
+        y: number;
+    };
 }
 export declare class DragDirective {
     private dataTransfer;

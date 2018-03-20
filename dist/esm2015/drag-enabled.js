@@ -57,14 +57,17 @@ class DropDirective {
         this.onDragOver = new EventEmitter();
     }
     /**
+     * @param {?} event
      * @return {?}
      */
-    createDropEvent() {
+    createDropEvent(event) {
         return {
             source: this.dataTransfer.getData("source"),
             destination: {
                 medium: this.medium,
-                node: this.el.nativeElement
+                node: this.el.nativeElement,
+                clientX: event.clientX,
+                clientY: event.clientY,
             }
         };
     }
@@ -74,7 +77,7 @@ class DropDirective {
      */
     drop(event) {
         event.preventDefault();
-        const /** @type {?} */ dropEvent = this.createDropEvent();
+        const /** @type {?} */ dropEvent = this.createDropEvent(event);
         this.renderer.setElementClass(this.el.nativeElement, "drag-over", false);
         if (this.dropEnabled(dropEvent)) {
             this.onDrop.emit(dropEvent);
@@ -86,7 +89,7 @@ class DropDirective {
      */
     dragEnter(event) {
         event.preventDefault();
-        const /** @type {?} */ dropEvent = this.createDropEvent();
+        const /** @type {?} */ dropEvent = this.createDropEvent(event);
         if (this.dropEnabled(dropEvent)) {
             event.dataTransfer.dropEffect = this.dropEffect;
             this.renderer.setElementClass(this.el.nativeElement, "drag-over", true);
@@ -110,7 +113,7 @@ class DropDirective {
      * @return {?}
      */
     dragOver(event) {
-        const /** @type {?} */ dropEvent = this.createDropEvent();
+        const /** @type {?} */ dropEvent = this.createDropEvent(event);
         if (this.dropEnabled(dropEvent)) {
             event.preventDefault();
             this.renderer.setElementClass(this.el.nativeElement, "drag-over", true);
@@ -175,11 +178,18 @@ class DragDirective {
      * @return {?}
      */
     dragStart(event) {
+        event.stopPropagation();
+        const /** @type {?} */ rect = this.el.nativeElement.getBoundingClientRect();
         const /** @type {?} */ dragEvent = {
             medium: this.medium,
-            node: this.el.nativeElement
+            node: this.el.nativeElement,
+            clientX: event.clientX,
+            clientY: event.clientY,
+            offset: {
+                x: event.clientX - rect.left,
+                y: event.clientY - rect.top
+            }
         };
-        event.stopPropagation();
         if (this.dragEnabled(dragEvent)) {
             event.dataTransfer.effectAllowed = this.dragEffect;
             event.dataTransfer.setData("makeItTick", "true"); // this is needed just to make drag/drop event trigger.
@@ -193,6 +203,8 @@ class DragDirective {
      */
     drag(event) {
         const /** @type {?} */ dragEvent = this.dataTransfer.getData("source");
+        dragEvent.clientX = event.clientX;
+        dragEvent.clientY = event.clientY;
         if (this.dragEnabled(dragEvent)) {
             this.onDrag.emit(dragEvent);
         }
@@ -204,6 +216,8 @@ class DragDirective {
     dragEnd(event) {
         event.stopPropagation();
         const /** @type {?} */ dragEvent = this.dataTransfer.getData("source");
+        dragEvent.clientX = event.clientX;
+        dragEvent.clientY = event.clientY;
         this.onDragEnd.emit(dragEvent);
         this.renderer.setElementClass(this.el.nativeElement, "drag-over", false);
     }

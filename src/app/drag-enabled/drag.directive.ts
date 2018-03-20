@@ -11,7 +11,13 @@ import { DataTransfer } from './datatransfer';
 
 export interface DragEvent {
     medium: any,
-    node: HTMLElement
+    node: HTMLElement,
+    clientX?: number,
+    clientY?: number,
+    offset?: {
+        x: number, 
+        y: number
+    }
 }
 
 @Directive({
@@ -51,11 +57,19 @@ export class DragDirective {
 
     @HostListener('dragstart', ['$event']) 
     dragStart(event) {
+        event.stopPropagation();
+
+        const rect = this.el.nativeElement.getBoundingClientRect();
         const dragEvent: DragEvent = {
             medium: this.medium,
-            node: this.el.nativeElement
+            node: this.el.nativeElement,
+            clientX: event.clientX,
+            clientY: event.clientY,
+            offset: {
+                x: event.clientX-rect.left, 
+                y:event.clientY-rect.top
+            }
         }
-        event.stopPropagation();
         if (this.dragEnabled(dragEvent)) {
             event.dataTransfer.effectAllowed = this.dragEffect;
             event.dataTransfer.setData("makeItTick","true");// this is needed just to make drag/drop event trigger.
@@ -68,6 +82,10 @@ export class DragDirective {
     @HostListener('drag', ['$event']) 
     drag(event) {
         const dragEvent: DragEvent = this.dataTransfer.getData("source");
+
+        dragEvent.clientX = event.clientX;
+        dragEvent.clientY = event.clientY;
+        
         if (this.dragEnabled(dragEvent)) {
             this.onDrag.emit(dragEvent);
         }
@@ -75,8 +93,13 @@ export class DragDirective {
     
     @HostListener('dragend', ['$event']) 
     dragEnd(event) {
-        event.stopPropagation();	
+        event.stopPropagation();
+
         const dragEvent: DragEvent = this.dataTransfer.getData("source");
+
+        dragEvent.clientX = event.clientX;
+        dragEvent.clientY = event.clientY;
+        
         this.onDragEnd.emit(dragEvent);
         this.renderer.setElementClass(this.el.nativeElement, "drag-over", false);
     }
