@@ -181,7 +181,7 @@ var DragInDocumentDirective = /** @class */ (function () {
         this.renderer = renderer;
         this.el = el;
         this.dragEffect = "move";
-        this.dragEnabled = function (event) { return true; };
+        this.dragInDocument = function (event) { return true; };
         this.onDragStart = new core.EventEmitter();
         this.onDragEnd = new core.EventEmitter();
         this.onDrag = new core.EventEmitter();
@@ -199,7 +199,7 @@ var DragInDocumentDirective = /** @class */ (function () {
                 y: event.clientY - rect.top
             }
         };
-        if (this.dragEnabled(dragEvent)) {
+        if (this.dragInDocument(dragEvent)) {
             event.dataTransfer.effectAllowed = this.dragEffect;
             event.dataTransfer.setData("makeItTick", "true");
             this.dataTransfer.setData("source", dragEvent);
@@ -210,7 +210,7 @@ var DragInDocumentDirective = /** @class */ (function () {
         var dragEvent = this.dataTransfer.getData("source");
         dragEvent.clientX = event.clientX;
         dragEvent.clientY = event.clientY;
-        if (this.dragEnabled(dragEvent)) {
+        if (this.dragInDocument(dragEvent)) {
             this.onDrag.emit(dragEvent);
         }
     };
@@ -238,7 +238,7 @@ DragInDocumentDirective.ctorParameters = function () { return [
 DragInDocumentDirective.propDecorators = {
     "medium": [{ type: core.Input, args: ["medium",] },],
     "dragEffect": [{ type: core.Input, args: ["dragEffect",] },],
-    "dragEnabled": [{ type: core.Input, args: ["dragEnabled",] },],
+    "dragInDocument": [{ type: core.Input, args: ["dragInDocument",] },],
     "onDragStart": [{ type: core.Output },],
     "onDragEnd": [{ type: core.Output },],
     "onDrag": [{ type: core.Output },],

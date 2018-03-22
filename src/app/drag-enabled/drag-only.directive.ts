@@ -13,17 +13,7 @@ import {
     Renderer
 } from '@angular/core';
 import { DataTransfer } from './datatransfer';
-
-export interface DragEvent {
-    medium: any,
-    node: HTMLElement,
-    clientX?: number,
-    clientY?: number,
-    offset?: {
-        x: number, 
-        y: number
-    }
-}
+import { DragEvent } from './drag-drop.interfaces';
 
 @Directive({
     selector: '[dragInDocument]',
@@ -39,8 +29,8 @@ export class DragInDocumentDirective {
     @Input("dragEffect")
     dragEffect = "move";
     
-    @Input("dragEnabled")
-    dragEnabled = (event) => true;
+    @Input("dragInDocument")
+    dragInDocument = (event) => true;
     
     @Output()
     onDragStart: EventEmitter<any> = new EventEmitter();
@@ -75,7 +65,7 @@ export class DragInDocumentDirective {
                 y: event.clientY - rect.top
             }
         }
-        if (this.dragEnabled(dragEvent)) {
+        if (this.dragInDocument(dragEvent)) {
             event.dataTransfer.effectAllowed = this.dragEffect;
             event.dataTransfer.setData("makeItTick","true");// this is needed just to make drag/drop event trigger.
 
@@ -91,7 +81,7 @@ export class DragInDocumentDirective {
         dragEvent.clientX = event.clientX;
         dragEvent.clientY = event.clientY;
         
-        if (this.dragEnabled(dragEvent)) {
+        if (this.dragInDocument(dragEvent)) {
             this.onDrag.emit(dragEvent);
         }
     }

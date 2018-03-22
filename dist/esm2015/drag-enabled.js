@@ -242,10 +242,6 @@ DragDirective.propDecorators = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
- * @record
- */
-
 class DragInDocumentDirective {
     /**
      * @param {?} dataTransfer
@@ -257,7 +253,7 @@ class DragInDocumentDirective {
         this.renderer = renderer;
         this.el = el;
         this.dragEffect = "move";
-        this.dragEnabled = (event) => true;
+        this.dragInDocument = (event) => true;
         this.onDragStart = new EventEmitter();
         this.onDragEnd = new EventEmitter();
         this.onDrag = new EventEmitter();
@@ -279,7 +275,7 @@ class DragInDocumentDirective {
                 y: event.clientY - rect.top
             }
         };
-        if (this.dragEnabled(dragEvent)) {
+        if (this.dragInDocument(dragEvent)) {
             event.dataTransfer.effectAllowed = this.dragEffect;
             event.dataTransfer.setData("makeItTick", "true"); // this is needed just to make drag/drop event trigger.
             this.dataTransfer.setData("source", dragEvent);
@@ -294,7 +290,7 @@ class DragInDocumentDirective {
         const /** @type {?} */ dragEvent = this.dataTransfer.getData("source");
         dragEvent.clientX = event.clientX;
         dragEvent.clientY = event.clientY;
-        if (this.dragEnabled(dragEvent)) {
+        if (this.dragInDocument(dragEvent)) {
             this.onDrag.emit(dragEvent);
         }
     }
@@ -326,7 +322,7 @@ DragInDocumentDirective.ctorParameters = () => [
 DragInDocumentDirective.propDecorators = {
     "medium": [{ type: Input, args: ["medium",] },],
     "dragEffect": [{ type: Input, args: ["dragEffect",] },],
-    "dragEnabled": [{ type: Input, args: ["dragEnabled",] },],
+    "dragInDocument": [{ type: Input, args: ["dragInDocument",] },],
     "onDragStart": [{ type: Output },],
     "onDragEnd": [{ type: Output },],
     "onDrag": [{ type: Output },],
