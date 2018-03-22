@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { DataTransfer } from './datatransfer';
 import { DragDirective } from './drag.directive';
+import { DragInDocumentDirective } from './drag-only.directive';
 import { DropDirective } from './drop.directive';
 
 @NgModule({
@@ -10,18 +11,21 @@ import { DropDirective } from './drop.directive';
     CommonModule
   ],
   declarations: [
-		DragDirective,
-		DropDirective
+    DragDirective,
+    DragInDocumentDirective,
+	DropDirective
   ],
   exports: [
-		DragDirective,
-		DropDirective
+	DragDirective,
+    DragInDocumentDirective,
+	DropDirective
   ],
   entryComponents: [
   ],
   providers: [
-		DragDirective,
-		DropDirective,
+	DragDirective,
+    DragInDocumentDirective,
+	DropDirective,
     DataTransfer
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

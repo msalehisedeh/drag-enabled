@@ -1,23 +1,6 @@
 import { ElementRef, Renderer, EventEmitter } from '@angular/core';
 import { DataTransfer } from './datatransfer';
-export interface DropEvent {
-    source: {
-        medium: any;
-        node: HTMLElement;
-        clientX?: number;
-        clientY?: number;
-        offset?: {
-            x: number;
-            y: number;
-        };
-    };
-    destination: {
-        medium: any;
-        node: HTMLElement;
-        clientX?: number;
-        clientY?: number;
-    };
-}
+import { DropEvent } from './drag-drop.interfaces';
 export declare class DropDirective {
     private dataTransfer;
     private renderer;

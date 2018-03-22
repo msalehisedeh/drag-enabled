@@ -143,8 +143,6 @@ var DragDirective = /** @class */ (function () {
     DragDirective.prototype.dragEnd = function (event) {
         event.stopPropagation();
         var dragEvent = this.dataTransfer.getData("source");
-        dragEvent.clientX = event.clientX;
-        dragEvent.clientY = event.clientY;
         this.onDragEnd.emit(dragEvent);
         this.renderer.setElementClass(this.el.nativeElement, "drag-over", false);
     };
@@ -174,6 +172,77 @@ DragDirective.propDecorators = {
     "drag": [{ type: HostListener, args: ['drag', ['$event'],] },],
     "dragEnd": [{ type: HostListener, args: ['dragend', ['$event'],] },],
 };
+var DragInDocumentDirective = /** @class */ (function () {
+    function DragInDocumentDirective(dataTransfer, renderer, el) {
+        this.dataTransfer = dataTransfer;
+        this.renderer = renderer;
+        this.el = el;
+        this.dragEffect = "move";
+        this.dragEnabled = function (event) { return true; };
+        this.onDragStart = new EventEmitter();
+        this.onDragEnd = new EventEmitter();
+        this.onDrag = new EventEmitter();
+    }
+    DragInDocumentDirective.prototype.dragStart = function (event) {
+        event.stopPropagation();
+        var rect = this.el.nativeElement.getBoundingClientRect();
+        var dragEvent = {
+            medium: this.medium,
+            node: this.el.nativeElement,
+            clientX: event.clientX,
+            clientY: event.clientY,
+            offset: {
+                x: event.clientX - rect.left,
+                y: event.clientY - rect.top
+            }
+        };
+        if (this.dragEnabled(dragEvent)) {
+            event.dataTransfer.effectAllowed = this.dragEffect;
+            event.dataTransfer.setData("makeItTick", "true");
+            this.dataTransfer.setData("source", dragEvent);
+            this.onDragStart.emit(dragEvent);
+        }
+    };
+    DragInDocumentDirective.prototype.drag = function (event) {
+        var dragEvent = this.dataTransfer.getData("source");
+        dragEvent.clientX = event.clientX;
+        dragEvent.clientY = event.clientY;
+        if (this.dragEnabled(dragEvent)) {
+            this.onDrag.emit(dragEvent);
+        }
+    };
+    DragInDocumentDirective.prototype.dragEnd = function (event) {
+        event.stopPropagation();
+        var dragEvent = this.dataTransfer.getData("source");
+        this.onDragEnd.emit(dragEvent);
+        this.renderer.setElementClass(this.el.nativeElement, "drag-over", false);
+    };
+    return DragInDocumentDirective;
+}());
+DragInDocumentDirective.decorators = [
+    { type: Directive, args: [{
+                selector: '[dragInDocument]',
+                host: {
+                    '[draggable]': 'true'
+                }
+            },] },
+];
+DragInDocumentDirective.ctorParameters = function () { return [
+    { type: DataTransfer, },
+    { type: Renderer, },
+    { type: ElementRef, },
+]; };
+DragInDocumentDirective.propDecorators = {
+    "medium": [{ type: Input, args: ["medium",] },],
+    "dragEffect": [{ type: Input, args: ["dragEffect",] },],
+    "dragEnabled": [{ type: Input, args: ["dragEnabled",] },],
+    "onDragStart": [{ type: Output },],
+    "onDragEnd": [{ type: Output },],
+    "onDrag": [{ type: Output },],
+    "dragStart": [{ type: HostListener, args: ['dragstart', ['$event'],] },],
+    "drag": [{ type: HostListener, args: ['document:drag', ['$event'],] },],
+    "dragEnd": [{ type: HostListener, args: ['document:dragend', ['$event'],] },],
+};
 var DragDropModule = /** @class */ (function () {
     function DragDropModule() {
     }
@@ -186,15 +255,18 @@ DragDropModule.decorators = [
                 ],
                 declarations: [
                     DragDirective,
+                    DragInDocumentDirective,
                     DropDirective
                 ],
                 exports: [
                     DragDirective,
+                    DragInDocumentDirective,
                     DropDirective
                 ],
                 entryComponents: [],
                 providers: [
                     DragDirective,
+                    DragInDocumentDirective,
                     DropDirective,
                     DataTransfer
                 ],
@@ -203,5 +275,5 @@ DragDropModule.decorators = [
 ];
 DragDropModule.ctorParameters = function () { return []; };
 
-export { DropDirective, DragDirective, DragDropModule, DataTransfer as ɵa };
+export { DropDirective, DragDirective, DragInDocumentDirective, DragDropModule, DataTransfer as ɵa };
 //# sourceMappingURL=drag-enabled.js.map

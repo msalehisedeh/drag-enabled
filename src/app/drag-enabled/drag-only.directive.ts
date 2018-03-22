@@ -1,3 +1,8 @@
+/*
+ * This directive is best suited for dragging an element with confinement of document.  it is not recomended
+ * to be used in conjunction with a drop operation if an element is to be dropped on another element within 
+ * a heirarchy of nodes.
+ */
 import {
     Directive,
     ElementRef,
@@ -8,15 +13,25 @@ import {
     Renderer
 } from '@angular/core';
 import { DataTransfer } from './datatransfer';
-import { DragEvent } from './drag-drop.interfaces';
+
+export interface DragEvent {
+    medium: any,
+    node: HTMLElement,
+    clientX?: number,
+    clientY?: number,
+    offset?: {
+        x: number, 
+        y: number
+    }
+}
 
 @Directive({
-    selector: '[dragEnabled]',
+    selector: '[dragInDocument]',
     host: {
         '[draggable]': 'true'
     }
 })
-export class DragDirective {
+export class DragInDocumentDirective {
     
     @Input("medium")
     medium: any;
@@ -69,7 +84,7 @@ export class DragDirective {
         }
     }
     
-    @HostListener('drag', ['$event']) 
+    @HostListener('document:drag', ['$event']) 
     drag(event) {
         const dragEvent: DragEvent = this.dataTransfer.getData("source");
 
@@ -81,7 +96,7 @@ export class DragDirective {
         }
     }
     
-    @HostListener('dragend', ['$event']) 
+    @HostListener('document:dragend', ['$event']) 
     dragEnd(event) {
         event.stopPropagation();
         const dragEvent: DragEvent = this.dataTransfer.getData("source");        

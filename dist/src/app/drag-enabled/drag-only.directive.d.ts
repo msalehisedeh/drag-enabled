@@ -1,6 +1,16 @@
 import { ElementRef, EventEmitter, Renderer } from '@angular/core';
 import { DataTransfer } from './datatransfer';
-export declare class DragDirective {
+export interface DragEvent {
+    medium: any;
+    node: HTMLElement;
+    clientX?: number;
+    clientY?: number;
+    offset?: {
+        x: number;
+        y: number;
+    };
+}
+export declare class DragInDocumentDirective {
     private dataTransfer;
     private renderer;
     private el;

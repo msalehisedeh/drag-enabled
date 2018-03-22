@@ -9,25 +9,8 @@ import {
 } from '@angular/core';
 
 import { DataTransfer } from './datatransfer';
+import { DropEvent } from './drag-drop.interfaces';
 
-export interface DropEvent {
-    source: {
-        medium: any,
-        node: HTMLElement,
-        clientX?: number,
-        clientY?: number,
-        offset?: {
-            x: number, 
-            y: number
-        }
-    },
-    destination: {
-        medium: any,
-        node: HTMLElement,
-        clientX?: number,
-        clientY?: number
-    }
-}
 
 @Directive({
     selector: '[dropEnabled]'
