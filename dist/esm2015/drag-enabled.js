@@ -327,7 +327,7 @@ DragInDocumentDirective.propDecorators = {
     "onDragEnd": [{ type: Output },],
     "onDrag": [{ type: Output },],
     "dragStart": [{ type: HostListener, args: ['dragstart', ['$event'],] },],
-    "drag": [{ type: HostListener, args: ['document:drag', ['$event'],] },],
+    "drag": [{ type: HostListener, args: ['document:dragover', ['$event'],] },],
     "dragEnd": [{ type: HostListener, args: ['document:dragend', ['$event'],] },],
 };
 

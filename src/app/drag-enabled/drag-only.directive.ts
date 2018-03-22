@@ -74,7 +74,7 @@ export class DragInDocumentDirective {
         }
     }
     
-    @HostListener('document:drag', ['$event']) 
+    @HostListener('document:dragover', ['$event']) 
     drag(event) {
         const dragEvent: DragEvent = this.dataTransfer.getData("source");
 

@@ -243,7 +243,7 @@ DragInDocumentDirective.propDecorators = {
     "onDragEnd": [{ type: core.Output },],
     "onDrag": [{ type: core.Output },],
     "dragStart": [{ type: core.HostListener, args: ['dragstart', ['$event'],] },],
-    "drag": [{ type: core.HostListener, args: ['document:drag', ['$event'],] },],
+    "drag": [{ type: core.HostListener, args: ['document:dragover', ['$event'],] },],
     "dragEnd": [{ type: core.HostListener, args: ['document:dragend', ['$event'],] },],
 };
 var DragDropModule = /** @class */ (function () {
