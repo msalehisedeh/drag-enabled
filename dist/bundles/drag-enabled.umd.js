@@ -21,9 +21,8 @@ DataTransfer.decorators = [
 ];
 DataTransfer.ctorParameters = function () { return []; };
 var DropDirective = /** @class */ (function () {
-    function DropDirective(dataTransfer, renderer, el) {
+    function DropDirective(dataTransfer, el) {
         this.dataTransfer = dataTransfer;
-        this.renderer = renderer;
         this.el = el;
         this.dropEffect = "move";
         this.dropEnabled = function (event) { return true; };
@@ -46,7 +45,7 @@ var DropDirective = /** @class */ (function () {
     DropDirective.prototype.drop = function (event) {
         event.preventDefault();
         var dropEvent = this.createDropEvent(event);
-        this.renderer.setElementClass(this.el.nativeElement, "drag-over", false);
+        this.el.nativeElement.classList.remove("drag-over");
         if (this.dropEnabled(dropEvent)) {
             this.onDrop.emit(dropEvent);
         }
@@ -56,27 +55,27 @@ var DropDirective = /** @class */ (function () {
         var dropEvent = this.createDropEvent(event);
         if (this.dropEnabled(dropEvent)) {
             event.dataTransfer.dropEffect = this.dropEffect;
-            this.renderer.setElementClass(this.el.nativeElement, "drag-over", true);
+            this.el.nativeElement.classList.add("drag-over");
             this.onDragEnter.emit(dropEvent);
         }
         else {
-            this.renderer.setElementClass(this.el.nativeElement, "drag-over", false);
+            this.el.nativeElement.classList.remove("drag-over");
         }
     };
     DropDirective.prototype.dragLeave = function (event) {
         event.preventDefault();
-        this.renderer.setElementClass(this.el.nativeElement, "drag-over", false);
+        this.el.nativeElement.classList.remove("drag-over");
         this.onDragLeave.emit(event);
     };
     DropDirective.prototype.dragOver = function (event) {
         var dropEvent = this.createDropEvent(event);
         if (this.dropEnabled(dropEvent)) {
             event.preventDefault();
-            this.renderer.setElementClass(this.el.nativeElement, "drag-over", true);
+            this.el.nativeElement.classList.add("drag-over");
             this.onDragOver.emit(dropEvent);
         }
         else {
-            this.renderer.setElementClass(this.el.nativeElement, "drag-over", false);
+            this.el.nativeElement.classList.remove("drag-over");
         }
     };
     return DropDirective;
@@ -88,7 +87,6 @@ DropDirective.decorators = [
 ];
 DropDirective.ctorParameters = function () { return [
     { type: DataTransfer, },
-    { type: core.Renderer, },
     { type: core.ElementRef, },
 ]; };
 DropDirective.propDecorators = {
@@ -105,9 +103,8 @@ DropDirective.propDecorators = {
     "dragOver": [{ type: core.HostListener, args: ['dragover', ['$event'],] },],
 };
 var DragDirective = /** @class */ (function () {
-    function DragDirective(dataTransfer, renderer, el) {
+    function DragDirective(dataTransfer, el) {
         this.dataTransfer = dataTransfer;
-        this.renderer = renderer;
         this.el = el;
         this.dragEffect = "move";
         this.dragEnabled = function (event) { return true; };
@@ -147,7 +144,7 @@ var DragDirective = /** @class */ (function () {
         event.stopPropagation();
         var dragEvent = this.dataTransfer.getData("source");
         this.onDragEnd.emit(dragEvent);
-        this.renderer.setElementClass(this.el.nativeElement, "drag-over", false);
+        this.el.nativeElement.classList.remove("drag-over");
     };
     return DragDirective;
 }());
@@ -161,7 +158,6 @@ DragDirective.decorators = [
 ];
 DragDirective.ctorParameters = function () { return [
     { type: DataTransfer, },
-    { type: core.Renderer, },
     { type: core.ElementRef, },
 ]; };
 DragDirective.propDecorators = {
@@ -176,9 +172,8 @@ DragDirective.propDecorators = {
     "dragEnd": [{ type: core.HostListener, args: ['dragend', ['$event'],] },],
 };
 var DragInDocumentDirective = /** @class */ (function () {
-    function DragInDocumentDirective(dataTransfer, renderer, el) {
+    function DragInDocumentDirective(dataTransfer, el) {
         this.dataTransfer = dataTransfer;
-        this.renderer = renderer;
         this.el = el;
         this.dragEffect = "move";
         this.dragInDocument = function (event) { return true; };
@@ -218,7 +213,7 @@ var DragInDocumentDirective = /** @class */ (function () {
         event.stopPropagation();
         var dragEvent = this.dataTransfer.getData("source");
         this.onDragEnd.emit(dragEvent);
-        this.renderer.setElementClass(this.el.nativeElement, "drag-over", false);
+        this.el.nativeElement.classList.remove("drag-over");
     };
     return DragInDocumentDirective;
 }());
@@ -232,7 +227,6 @@ DragInDocumentDirective.decorators = [
 ];
 DragInDocumentDirective.ctorParameters = function () { return [
     { type: DataTransfer, },
-    { type: core.Renderer, },
     { type: core.ElementRef, },
 ]; };
 DragInDocumentDirective.propDecorators = {

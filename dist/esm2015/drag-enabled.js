@@ -1,4 +1,4 @@
-import { Injectable, Directive, ElementRef, HostListener, Input, Output, Renderer, EventEmitter, NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Injectable, Directive, ElementRef, HostListener, Input, Output, EventEmitter, NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 /**
@@ -38,12 +38,10 @@ DataTransfer.ctorParameters = () => [];
 class DropDirective {
     /**
      * @param {?} dataTransfer
-     * @param {?} renderer
      * @param {?} el
      */
-    constructor(dataTransfer, renderer, el) {
+    constructor(dataTransfer, el) {
         this.dataTransfer = dataTransfer;
-        this.renderer = renderer;
         this.el = el;
         this.dropEffect = "move";
         this.dropEnabled = (event) => true;
@@ -74,7 +72,7 @@ class DropDirective {
     drop(event) {
         event.preventDefault();
         const /** @type {?} */ dropEvent = this.createDropEvent(event);
-        this.renderer.setElementClass(this.el.nativeElement, "drag-over", false);
+        this.el.nativeElement.classList.remove("drag-over");
         if (this.dropEnabled(dropEvent)) {
             this.onDrop.emit(dropEvent);
         }
@@ -88,11 +86,11 @@ class DropDirective {
         const /** @type {?} */ dropEvent = this.createDropEvent(event);
         if (this.dropEnabled(dropEvent)) {
             event.dataTransfer.dropEffect = this.dropEffect;
-            this.renderer.setElementClass(this.el.nativeElement, "drag-over", true);
+            this.el.nativeElement.classList.add("drag-over");
             this.onDragEnter.emit(dropEvent);
         }
         else {
-            this.renderer.setElementClass(this.el.nativeElement, "drag-over", false);
+            this.el.nativeElement.classList.remove("drag-over");
         }
     }
     /**
@@ -101,7 +99,7 @@ class DropDirective {
      */
     dragLeave(event) {
         event.preventDefault();
-        this.renderer.setElementClass(this.el.nativeElement, "drag-over", false);
+        this.el.nativeElement.classList.remove("drag-over");
         this.onDragLeave.emit(event);
     }
     /**
@@ -112,11 +110,11 @@ class DropDirective {
         const /** @type {?} */ dropEvent = this.createDropEvent(event);
         if (this.dropEnabled(dropEvent)) {
             event.preventDefault();
-            this.renderer.setElementClass(this.el.nativeElement, "drag-over", true);
+            this.el.nativeElement.classList.add("drag-over");
             this.onDragOver.emit(dropEvent);
         }
         else {
-            this.renderer.setElementClass(this.el.nativeElement, "drag-over", false);
+            this.el.nativeElement.classList.remove("drag-over");
         }
     }
 }
@@ -128,7 +126,6 @@ DropDirective.decorators = [
 /** @nocollapse */
 DropDirective.ctorParameters = () => [
     { type: DataTransfer, },
-    { type: Renderer, },
     { type: ElementRef, },
 ];
 DropDirective.propDecorators = {
@@ -152,12 +149,10 @@ DropDirective.propDecorators = {
 class DragDirective {
     /**
      * @param {?} dataTransfer
-     * @param {?} renderer
      * @param {?} el
      */
-    constructor(dataTransfer, renderer, el) {
+    constructor(dataTransfer, el) {
         this.dataTransfer = dataTransfer;
-        this.renderer = renderer;
         this.el = el;
         this.dragEffect = "move";
         this.dragEnabled = (event) => true;
@@ -209,7 +204,7 @@ class DragDirective {
         event.stopPropagation();
         const /** @type {?} */ dragEvent = this.dataTransfer.getData("source");
         this.onDragEnd.emit(dragEvent);
-        this.renderer.setElementClass(this.el.nativeElement, "drag-over", false);
+        this.el.nativeElement.classList.remove("drag-over");
     }
 }
 DragDirective.decorators = [
@@ -223,7 +218,6 @@ DragDirective.decorators = [
 /** @nocollapse */
 DragDirective.ctorParameters = () => [
     { type: DataTransfer, },
-    { type: Renderer, },
     { type: ElementRef, },
 ];
 DragDirective.propDecorators = {
@@ -245,12 +239,10 @@ DragDirective.propDecorators = {
 class DragInDocumentDirective {
     /**
      * @param {?} dataTransfer
-     * @param {?} renderer
      * @param {?} el
      */
-    constructor(dataTransfer, renderer, el) {
+    constructor(dataTransfer, el) {
         this.dataTransfer = dataTransfer;
-        this.renderer = renderer;
         this.el = el;
         this.dragEffect = "move";
         this.dragInDocument = (event) => true;
@@ -302,7 +294,7 @@ class DragInDocumentDirective {
         event.stopPropagation();
         const /** @type {?} */ dragEvent = this.dataTransfer.getData("source");
         this.onDragEnd.emit(dragEvent);
-        this.renderer.setElementClass(this.el.nativeElement, "drag-over", false);
+        this.el.nativeElement.classList.remove("drag-over");
     }
 }
 DragInDocumentDirective.decorators = [
@@ -316,7 +308,6 @@ DragInDocumentDirective.decorators = [
 /** @nocollapse */
 DragInDocumentDirective.ctorParameters = () => [
     { type: DataTransfer, },
-    { type: Renderer, },
     { type: ElementRef, },
 ];
 DragInDocumentDirective.propDecorators = {

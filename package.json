@@ -1,6 +1,6 @@
 {
   "name": "drag-enabled",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
@@ -10,6 +10,9 @@
     "packagr": "ng-packagr -p ng-package.json"
   },
   "private": false,
+  "keywords": [
+	"angular 4", "drag-drop", "drag and drop", "dragndrop", "drag&drop", "drag", "drop", "draggable", "html 5", "easy", "best", "reusable"
+  ],
   "dependencies": {
     "@angular/common": "^5.0.0 || ^4.0.0 || ^2.0.0",
     "@angular/compiler": "^5.0.0 || ^4.0.0 || ^2.0.0",

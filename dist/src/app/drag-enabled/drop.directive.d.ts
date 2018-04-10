@@ -1,9 +1,8 @@
-import { ElementRef, Renderer, EventEmitter } from '@angular/core';
+import { ElementRef, EventEmitter } from '@angular/core';
 import { DataTransfer } from './datatransfer';
 import { DropEvent } from './drag-drop.interfaces';
 export declare class DropDirective {
     private dataTransfer;
-    private renderer;
     private el;
     medium: any;
     dropEffect: string;
@@ -12,7 +11,7 @@ export declare class DropDirective {
     onDragLeave: EventEmitter<any>;
     onDrop: EventEmitter<any>;
     onDragOver: EventEmitter<any>;
-    constructor(dataTransfer: DataTransfer, renderer: Renderer, el: ElementRef);
+    constructor(dataTransfer: DataTransfer, el: ElementRef);
     private createDropEvent(event);
     drop(event: any): void;
     dragEnter(event: any): void;

@@ -4,7 +4,6 @@ import {
     HostListener,
     Input,
     Output,
-    Renderer,
     EventEmitter
 } from '@angular/core';
 
@@ -40,7 +39,6 @@ export class DropDirective {
 
     constructor(
         private dataTransfer: DataTransfer,
-        private renderer: Renderer,
         private el: ElementRef
     ) {}
     
@@ -61,7 +59,7 @@ export class DropDirective {
         event.preventDefault();
         const dropEvent = this.createDropEvent(event);
 
-        this.renderer.setElementClass(this.el.nativeElement, "drag-over", false);
+        this.el.nativeElement.classList.remove("drag-over");
 
         if (this.dropEnabled(dropEvent)) {
             this.onDrop.emit(dropEvent);
@@ -76,10 +74,10 @@ export class DropDirective {
         if (this.dropEnabled(dropEvent)) {
             event.dataTransfer.dropEffect = this.dropEffect;
 
-            this.renderer.setElementClass(this.el.nativeElement, "drag-over", true);
+            this.el.nativeElement.classList.add("drag-over");
             this.onDragEnter.emit(dropEvent);
         } else {
-            this.renderer.setElementClass(this.el.nativeElement, "drag-over", false);
+            this.el.nativeElement.classList.remove("drag-over");
         }
     }
     
@@ -87,7 +85,7 @@ export class DropDirective {
     dragLeave(event) {
         event.preventDefault();
                 
-        this.renderer.setElementClass(this.el.nativeElement, "drag-over", false);
+        this.el.nativeElement.classList.remove("drag-over");
         this.onDragLeave.emit(event);
     }
     
@@ -97,10 +95,10 @@ export class DropDirective {
 
         if (this.dropEnabled(dropEvent)) {
             event.preventDefault();
-            this.renderer.setElementClass(this.el.nativeElement, "drag-over", true);
+            this.el.nativeElement.classList.add("drag-over");
             this.onDragOver.emit(dropEvent);
         } else {
-            this.renderer.setElementClass(this.el.nativeElement, "drag-over", false);
+            this.el.nativeElement.classList.remove("drag-over");
         }
     }
 }

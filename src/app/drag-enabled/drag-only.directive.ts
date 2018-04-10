@@ -9,8 +9,7 @@ import {
     HostListener,
     Input,
     Output,
-    EventEmitter,
-    Renderer
+    EventEmitter
 } from '@angular/core';
 import { DataTransfer } from './datatransfer';
 import { DragEvent } from './drag-drop.interfaces';
@@ -45,7 +44,6 @@ export class DragInDocumentDirective {
         
     constructor(
         private dataTransfer: DataTransfer,
-        private renderer: Renderer,
         private el: ElementRef
     ) {
     }
@@ -91,6 +89,6 @@ export class DragInDocumentDirective {
         event.stopPropagation();
         const dragEvent: DragEvent = this.dataTransfer.getData("source");        
         this.onDragEnd.emit(dragEvent);
-        this.renderer.setElementClass(this.el.nativeElement, "drag-over", false);
+        this.el.nativeElement.classList.remove("drag-over");
     }
 }
