@@ -262,9 +262,6 @@ DragDropModule.decorators = [
                 ],
                 entryComponents: [],
                 providers: [
-                    DragDirective,
-                    DragInDocumentDirective,
-                    DropDirective,
                     DataTransfer
                 ],
                 schemas: [core.CUSTOM_ELEMENTS_SCHEMA]

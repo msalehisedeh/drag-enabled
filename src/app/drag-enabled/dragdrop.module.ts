@@ -13,19 +13,16 @@ import { DropDirective } from './drop.directive';
   declarations: [
     DragDirective,
     DragInDocumentDirective,
-	DropDirective
+	  DropDirective
   ],
   exports: [
-	DragDirective,
+	  DragDirective,
     DragInDocumentDirective,
-	DropDirective
+	  DropDirective
   ],
   entryComponents: [
   ],
   providers: [
-	DragDirective,
-    DragInDocumentDirective,
-	DropDirective,
     DataTransfer
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

@@ -6,10 +6,11 @@ This library provides Angular 4 directives that enables you to have any html tag
 
 You will be able to pass a medium object to the directives. The medium will supposedly have or know of certain things that can help your code make a decision on allowing a drag or a drop to take place. It could be a reference to a node or a structure in your code. At the start, a "dragEnabled" requst with a DragEvent will be sent to your component. if returned true, dragging begins. At the end of drag operation, an event with the source medium, source HTMLElement, destination medium, and destination HTMLElement will be sent to your component to perform any action necessary.
 
-[Live Demo (drag/drop tags)](https://tagbox.stackblitz.io) | 
+[Live Demo (drag/drop tags)](https://tagbox.stackblitz.io) | [Source code](https://github.com/msalehisedeh/drag-enabled) | [Comments/Requests](https://github.com/msalehisedeh/drag-enabled/issues)
 
-[Source code](https://github.com/msalehisedeh/drag-enabled)
 
+# Version 1.0.0
+fixed a declaration mistake. Increasing version number to 1.0.0 because I think that's it.. and there is nothing more to enhance.. unless otherwise, i get a request to make specific enhancements... 
 
 # Version 0.2.4
 Had to remove renderer from the directives to avoid issues I was facing in stackblitz.io for creating live demo of complex components. 
