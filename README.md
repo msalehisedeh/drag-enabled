@@ -9,6 +9,9 @@ You will be able to pass a medium object to the directives. The medium will supp
 [Live Demo (drag/drop tags)](https://tagbox.stackblitz.io) | [Source code](https://github.com/msalehisedeh/drag-enabled) | [Comments/Requests](https://github.com/msalehisedeh/drag-enabled/issues)
 
 
+# Version 1.0.1
+Compiled with AOT option and resolved issues. 
+
 # Version 1.0.0
 fixed a declaration mistake. Increasing version number to 1.0.0 because I think that's it.. and there is nothing more to enhance.. unless otherwise, i get a request to make specific enhancements... 
 

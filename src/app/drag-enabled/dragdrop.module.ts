@@ -8,17 +8,17 @@ import { DropDirective } from './drop.directive';
 
 @NgModule({
   imports: [
-    CommonModule
+	CommonModule
   ],
   declarations: [
-    DragDirective,
+	DragDirective,
     DragInDocumentDirective,
-	  DropDirective
+	DropDirective
   ],
   exports: [
-	  DragDirective,
-    DragInDocumentDirective,
-	  DropDirective
+	DragDirective,
+	DragInDocumentDirective,
+	DropDirective
   ],
   entryComponents: [
   ],

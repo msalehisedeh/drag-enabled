@@ -7,6 +7,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Drag Enabled';
+  header1 = '';
+  header2 = '';
 
   constructor() {
 
