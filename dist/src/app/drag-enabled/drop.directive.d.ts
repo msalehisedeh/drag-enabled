@@ -12,7 +12,7 @@ export declare class DropDirective {
     onDrop: EventEmitter<any>;
     onDragOver: EventEmitter<any>;
     constructor(dataTransfer: DataTransfer, el: ElementRef);
-    private createDropEvent(event);
+    private createDropEvent;
     drop(event: any): void;
     dragEnter(event: any): void;
     dragLeave(event: any): void;

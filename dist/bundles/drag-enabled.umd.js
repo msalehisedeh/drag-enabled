@@ -1,6 +1,6 @@
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/common'], factory) :
+	typeof define === 'function' && define.amd ? define('drag-enabled', ['exports', '@angular/core', '@angular/common'], factory) :
 	(factory((global['drag-enabled'] = {}),global.ng.core,global.ng.common));
 }(this, (function (exports,core,common) { 'use strict';
 
@@ -86,21 +86,21 @@ DropDirective.decorators = [
             },] },
 ];
 DropDirective.ctorParameters = function () { return [
-    { type: DataTransfer, },
-    { type: core.ElementRef, },
+    { type: DataTransfer },
+    { type: core.ElementRef }
 ]; };
 DropDirective.propDecorators = {
-    "medium": [{ type: core.Input, args: ['medium',] },],
-    "dropEffect": [{ type: core.Input },],
-    "dropEnabled": [{ type: core.Input, args: ["dropEnabled",] },],
-    "onDragEnter": [{ type: core.Output },],
-    "onDragLeave": [{ type: core.Output },],
-    "onDrop": [{ type: core.Output },],
-    "onDragOver": [{ type: core.Output },],
-    "drop": [{ type: core.HostListener, args: ['drop', ['$event'],] },],
-    "dragEnter": [{ type: core.HostListener, args: ['dragenter', ['$event'],] },],
-    "dragLeave": [{ type: core.HostListener, args: ['dragleave', ['$event'],] },],
-    "dragOver": [{ type: core.HostListener, args: ['dragover', ['$event'],] },],
+    medium: [{ type: core.Input, args: ['medium',] }],
+    dropEffect: [{ type: core.Input }],
+    dropEnabled: [{ type: core.Input, args: ["dropEnabled",] }],
+    onDragEnter: [{ type: core.Output }],
+    onDragLeave: [{ type: core.Output }],
+    onDrop: [{ type: core.Output }],
+    onDragOver: [{ type: core.Output }],
+    drop: [{ type: core.HostListener, args: ['drop', ['$event'],] }],
+    dragEnter: [{ type: core.HostListener, args: ['dragenter', ['$event'],] }],
+    dragLeave: [{ type: core.HostListener, args: ['dragleave', ['$event'],] }],
+    dragOver: [{ type: core.HostListener, args: ['dragover', ['$event'],] }]
 };
 var DragDirective = /** @class */ (function () {
     function DragDirective(dataTransfer, el) {
@@ -157,19 +157,19 @@ DragDirective.decorators = [
             },] },
 ];
 DragDirective.ctorParameters = function () { return [
-    { type: DataTransfer, },
-    { type: core.ElementRef, },
+    { type: DataTransfer },
+    { type: core.ElementRef }
 ]; };
 DragDirective.propDecorators = {
-    "medium": [{ type: core.Input, args: ["medium",] },],
-    "dragEffect": [{ type: core.Input, args: ["dragEffect",] },],
-    "dragEnabled": [{ type: core.Input, args: ["dragEnabled",] },],
-    "onDragStart": [{ type: core.Output },],
-    "onDragEnd": [{ type: core.Output },],
-    "onDrag": [{ type: core.Output },],
-    "dragStart": [{ type: core.HostListener, args: ['dragstart', ['$event'],] },],
-    "drag": [{ type: core.HostListener, args: ['drag', ['$event'],] },],
-    "dragEnd": [{ type: core.HostListener, args: ['dragend', ['$event'],] },],
+    medium: [{ type: core.Input, args: ["medium",] }],
+    dragEffect: [{ type: core.Input, args: ["dragEffect",] }],
+    dragEnabled: [{ type: core.Input, args: ["dragEnabled",] }],
+    onDragStart: [{ type: core.Output }],
+    onDragEnd: [{ type: core.Output }],
+    onDrag: [{ type: core.Output }],
+    dragStart: [{ type: core.HostListener, args: ['dragstart', ['$event'],] }],
+    drag: [{ type: core.HostListener, args: ['drag', ['$event'],] }],
+    dragEnd: [{ type: core.HostListener, args: ['dragend', ['$event'],] }]
 };
 var DragInDocumentDirective = /** @class */ (function () {
     function DragInDocumentDirective(dataTransfer, el) {
@@ -226,19 +226,19 @@ DragInDocumentDirective.decorators = [
             },] },
 ];
 DragInDocumentDirective.ctorParameters = function () { return [
-    { type: DataTransfer, },
-    { type: core.ElementRef, },
+    { type: DataTransfer },
+    { type: core.ElementRef }
 ]; };
 DragInDocumentDirective.propDecorators = {
-    "medium": [{ type: core.Input, args: ["medium",] },],
-    "dragEffect": [{ type: core.Input, args: ["dragEffect",] },],
-    "dragInDocument": [{ type: core.Input, args: ["dragInDocument",] },],
-    "onDragStart": [{ type: core.Output },],
-    "onDragEnd": [{ type: core.Output },],
-    "onDrag": [{ type: core.Output },],
-    "dragStart": [{ type: core.HostListener, args: ['dragstart', ['$event'],] },],
-    "drag": [{ type: core.HostListener, args: ['document:dragover', ['$event'],] },],
-    "dragEnd": [{ type: core.HostListener, args: ['document:dragend', ['$event'],] },],
+    medium: [{ type: core.Input, args: ["medium",] }],
+    dragEffect: [{ type: core.Input, args: ["dragEffect",] }],
+    dragInDocument: [{ type: core.Input, args: ["dragInDocument",] }],
+    onDragStart: [{ type: core.Output }],
+    onDragEnd: [{ type: core.Output }],
+    onDrag: [{ type: core.Output }],
+    dragStart: [{ type: core.HostListener, args: ['dragstart', ['$event'],] }],
+    drag: [{ type: core.HostListener, args: ['document:dragover', ['$event'],] }],
+    dragEnd: [{ type: core.HostListener, args: ['document:dragend', ['$event'],] }]
 };
 var DragDropModule = /** @class */ (function () {
     function DragDropModule() {
@@ -267,7 +267,6 @@ DragDropModule.decorators = [
                 schemas: [core.CUSTOM_ELEMENTS_SCHEMA]
             },] },
 ];
-DragDropModule.ctorParameters = function () { return []; };
 
 exports.DropDirective = DropDirective;
 exports.DragDirective = DragDirective;
