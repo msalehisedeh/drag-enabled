@@ -6,14 +6,17 @@ This library provides Angular 4 directives that enables you to have any html tag
 
 You will be able to pass a medium object to the directives. The medium will supposedly have or know of certain things that can help your code make a decision on allowing a drag or a drop to take place. It could be a reference to a node or a structure in your code. At the start, a "dragEnabled" requst with a DragEvent will be sent to your component. if returned true, dragging begins. At the end of drag operation, an event with the source medium, source HTMLElement, destination medium, and destination HTMLElement will be sent to your component to perform any action necessary.
 
-**NOTE: ** Starting with version 1.1.0 this library is compatible with Angular 6+.
+**NOTE:** Starting with version 1.1.0 this library is compatible with Angular 6+.
 
 
-[Live Demo (drag/drop tags)](https://tagbox.stackblitz.io) | [Source code](https://github.com/msalehisedeh/drag-enabled) | [Comments/Requests](https://github.com/msalehisedeh/drag-enabled/issues)
+[Live Demo (drag/drop tags)](https://tagbox.stackblitz.io) | [Source code](https://github.com/msalehisedeh/drag-enabled/tree/master/src/app) | [Comments/Requests](https://github.com/msalehisedeh/drag-enabled/issues)
 
+
+# Version 1.2.0
+It was brought to my attention that some users have trouble using my components in their angular 6 environment. Since I had only updated few dependencies when moved to Angular 6, I am thinking dependencies are causing issues. So, for this release, I am updating all dependencies to what Angular 6 applications are expecting to have. Please let me know if this is fixing or not fixing any issues you are facing.
 
 # Version 1.1.0
-Updated librares to become compatible with Angular 6+.. 
+Updated libraries to become compatible with Angular 6+. 
 
 # Version 1.0.1
 Compiled with AOT option and resolved issues. 
