@@ -4,8 +4,5 @@
     "entryFile": "public_api.ts"
   },
   "whitelistedNonPeerDependencies": [
-    "angular",
-    "zone",
-    "core-js"
   ]
 }

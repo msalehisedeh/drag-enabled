@@ -8,28 +8,11 @@ You will be able to pass a medium object to the directives. The medium will supp
 
 **NOTE:** Starting with version 1.1.0 this library is compatible with Angular 6+.
 
+**NOTE:** Starting with version 2.0.0 you need to import this library through @sedeh/drag-enabled.
 
-[Live Demo (drag/drop tags)](https://tagbox.stackblitz.io) | [Source code](https://github.com/msalehisedeh/drag-enabled/tree/master/src/app) | [Comments/Requests](https://github.com/msalehisedeh/drag-enabled/issues)
+[Comments/Requests](https://github.com/msalehisedeh/drag-enabled/issues) | [Source code](https://github.com/msalehisedeh/drag-enabled/tree/master/src/app) | [Live Demo (drag/drop tags)](https://tagbox.stackblitz.io)
 
-
-# Version 1.2.0
-It was brought to my attention that some users have trouble using my components in their angular 6 environment. Since I had only updated few dependencies when moved to Angular 6, I am thinking dependencies are causing issues. So, for this release, I am updating all dependencies to what Angular 6 applications are expecting to have. Please let me know if this is fixing or not fixing any issues you are facing.
-
-# Version 1.1.0
-Updated libraries to become compatible with Angular 6+. 
-
-# Version 1.0.1
-Compiled with AOT option and resolved issues. 
-
-# Version 1.0.0
-fixed a declaration mistake. Increasing version number to 1.0.0 because I think that's it.. and there is nothing more to enhance.. unless otherwise, i get a request to make specific enhancements... 
-
-# Version 0.2.4
-Had to remove renderer from the directives to avoid issues I was facing in stackblitz.io for creating live demo of complex components. 
-
-# Version 0.2.3
-
-Added a **DragInDocumentDirective** to resolve issue found in Mozzila when there is a drag only process and a need to drag an element within a document. If you want to do a drag and drop on a node within hierarchy, we recommend you use **DragDirective** and **DropDirective**.
+## Basic Information
 
 ```javascript
 MODULE:
@@ -44,8 +27,7 @@ DEPENDENCIES:
 	basic Angular core libraries
 ```
 
-# Version 0.1.2
-Turned out that this library can become a lot more useful if I pass the event location as well. So here it is... Made the new attributes optional to make it compatible for those who are using previous version if they get an accidental upgrade through npm install...
+## Interfaces
 
 ```javascript
 export interface DragEvent {
@@ -70,37 +52,25 @@ export interface DropEvent {
 }
 ```
 
-# Version 0.0.1
+## Sample code
 
+**App module**
 ```javascript
-MODULE:
-	DragDropModule
+import { NgModule } from '@angular/core';
+import {DragDropModule} from '@sedeh/drag-enabled';
 
-DEPENDENCIES:
-	basic Angular core libraries
+import { AppComponent } from './app.component';
+
+@NgModule({
+  declarations: [AppComponent],
+  imports: [DragDropModule],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
 ```
 
-Interfaces
-
-```javascript
-export interface DragEvent {
-	medium: any,
-	node: HTMLElement
-}
-
-export interface DropEvent {
-	source: DragEvent,
-	destination: {
-		medium: any,
-		node: HTMLElement
-	}
-}
-```
-
-The following are available functionalities presented in this version:
-
-Sample code
-
+**HTML**
 ```javascript
 <th scope="col"
 	[medium]="headerInfo"
@@ -110,8 +80,11 @@ Sample code
 	(onDrag)="onDrag($event)"
 	(onDragEnd)="onDragEnd($event)"
 	(onDrop)="onDrop($event)">header text</th>
+```
 
-.............
+**Component**
+```javascript
+import {DragEvent, DropEvent} from '@sedeh/drag-enabled';
 
 isDragEnabled(event: DragEvent) {
 	return event.medium.dragable;
@@ -128,8 +101,10 @@ dropEnabled(event: DropEvent) {
 onDrop(event: DropEvent){
 	// swapColumns(source.medium, source.node, destination.medium, destination.node);
 }
-.............
+```
 
+**SCSS**
+```javascript
 table {
 	th {
 		&.drag-over {
@@ -141,3 +116,17 @@ table {
 }
 ```
 
+## Releases
+
+| Version  |Description                                                                                                                                  |
+|----------|---------------------------------------------------------------------------------------------------------------------------------------------|
+|2.0.1     |updated dependencies.                                                                                                                        |
+|2.0.0     |Re-organizing libraries I am providing. Added scope to the project. From now on Accessing through @sedeh/drag-enabled                        |
+|1.2.0     |It was brought to my attention that some users have trouble using my components in their angular 6 environment. Since I had only updated few dependencies when moved to Angular 6, I am thinking dependencies are causing issues. So, for this release, I am updating all dependencies to what Angular 6 applications are expecting to have. Please let me know if this is fixing or not fixing any issues you are facing. |
+|1.1.0     |Updated libraries to become compatible with Angular 6+.                                                                                      |
+|1.0.1     |Compiled with AOT option and resolved issues.                                                                                                |
+|1.0.0     |fixed a declaration mistake. Increasing version number to 1.0.0 because I think that's it. and there is nothing more to enhance. unless otherwise, I get a request to make specific enhancements. |
+|0.2.4     |Had to remove renderer from the directives to avoid issues I was facing in stackblitz.io for creating live demo of complex components.       |
+|0.2.3     |Added a **DragInDocumentDirective** to resolve issue found in Mozilla when there is a drag only process and a need to drag an element within a document. If you want to do a drag and drop on a node within hierarchy, we recommend you use **DragDirective** and **DropDirective**. |
+|0.1.2     |Turned out that this library can become a lot more useful if I pass the event location as well. So here it is. Made the new attributes optional to make it compatible for those who are using previous version if they get an accidental upgrade through npm install. |
+|0.0.1     |Initial functionality.                                                                                                                       |
