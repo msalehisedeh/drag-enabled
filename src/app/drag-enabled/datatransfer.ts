@@ -12,11 +12,11 @@ export class DataTransfer {
 
     constructor() {}
 
-    setData(name, value){
+    setData(name: string, value: any){
         this.data[name] = value;
     }
 
-    getData(name) {
+    getData(name: string) {
         return this.data[name];
     }
             

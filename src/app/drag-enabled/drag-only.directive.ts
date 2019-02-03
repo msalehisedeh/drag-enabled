@@ -29,7 +29,7 @@ export class DragInDocumentDirective {
     dragEffect = "move";
     
     @Input("dragInDocument")
-    dragInDocument = (event) => true;
+    dragInDocument = (event: DragEvent) => true;
     
     @Output()
     onDragStart: EventEmitter<any> = new EventEmitter();
@@ -49,7 +49,7 @@ export class DragInDocumentDirective {
     }
 
     @HostListener('dragstart', ['$event']) 
-    dragStart(event) {
+    dragStart(event: any) {
         event.stopPropagation();
 
         const rect = this.el.nativeElement.getBoundingClientRect();
@@ -65,15 +65,25 @@ export class DragInDocumentDirective {
         }
         if (this.dragInDocument(dragEvent)) {
             event.dataTransfer.effectAllowed = this.dragEffect;
-            event.dataTransfer.setData("makeItTick","true");// this is needed just to make drag/drop event trigger.
-
+            if (!this.isIE()) {
+                event.dataTransfer.setData("makeItTick","true");// this is needed just to make drag/drop event trigger.
+            }
             this.dataTransfer.setData("source", dragEvent);
             this.onDragStart.emit(dragEvent);
         }
     }
+    private isIE() {
+        const match = navigator.userAgent.search(/(?:Edge|MSIE|Trident\/.*; rv:)/);
+        let isIE = false;
+    
+        if (match !== -1) {
+            isIE = true;
+        }
+        return isIE;
+    }
     
     @HostListener('document:dragover', ['$event']) 
-    drag(event) {
+    drag(event: any) {
         const dragEvent: DragEvent = this.dataTransfer.getData("source");
 
         dragEvent.clientX = event.clientX;
@@ -85,7 +95,7 @@ export class DragInDocumentDirective {
     }
     
     @HostListener('document:dragend', ['$event']) 
-    dragEnd(event) {
+    dragEnd(event: any) {
         event.stopPropagation();
         const dragEvent: DragEvent = this.dataTransfer.getData("source");        
         this.onDragEnd.emit(dragEvent);

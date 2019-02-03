@@ -42,7 +42,7 @@ export class DropDirective {
         private el: ElementRef
     ) {}
     
-	private createDropEvent(event): DropEvent {
+	private createDropEvent(event: any): DropEvent {
 		return {
             source: this.dataTransfer.getData("source"),
             destination: {
@@ -55,7 +55,7 @@ export class DropDirective {
 	}
 
     @HostListener('drop', ['$event'])
-    drop(event) {
+    drop(event: any) {
         event.preventDefault();
         const dropEvent = this.createDropEvent(event);
 
@@ -67,7 +67,7 @@ export class DropDirective {
     }
     
     @HostListener('dragenter', ['$event']) 
-    dragEnter(event) {
+    dragEnter(event: any) {
         event.preventDefault();
         const dropEvent = this.createDropEvent(event);
 
@@ -82,7 +82,7 @@ export class DropDirective {
     }
     
     @HostListener('dragleave', ['$event']) 
-    dragLeave(event) {
+    dragLeave(event: any) {
         event.preventDefault();
                 
         this.el.nativeElement.classList.remove("drag-over");
@@ -90,7 +90,7 @@ export class DropDirective {
     }
     
     @HostListener('dragover', ['$event']) 
-    dragOver(event) {
+    dragOver(event: any) {
         const dropEvent = this.createDropEvent(event);
 
         if (this.dropEnabled(dropEvent)) {

@@ -120,6 +120,7 @@ table {
 
 | Version  |Description                                                                                                                                  |
 |----------|---------------------------------------------------------------------------------------------------------------------------------------------|
+|2.1.0     |Fixed IE problem. Drag & Drop is now working in IE.                                                                                          |
 |2.0.1     |updated dependencies.                                                                                                                        |
 |2.0.0     |Re-organizing libraries I am providing. Added scope to the project. From now on Accessing through @sedeh/drag-enabled                        |
 |1.2.0     |It was brought to my attention that some users have trouble using my components in their angular 6 environment. Since I had only updated few dependencies when moved to Angular 6, I am thinking dependencies are causing issues. So, for this release, I am updating all dependencies to what Angular 6 applications are expecting to have. Please let me know if this is fixing or not fixing any issues you are facing. |
