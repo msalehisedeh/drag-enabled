@@ -1,54 +1,223 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common')) :
     typeof define === 'function' && define.amd ? define('@sedeh/drag-enabled', ['exports', '@angular/core', '@angular/common'], factory) :
-    (factory((global.sedeh = global.sedeh || {}, global.sedeh['drag-enabled'] = {}),global.ng.core,global.ng.common));
-}(this, (function (exports,core,common) { 'use strict';
+    (global = global || self, factory((global.sedeh = global.sedeh || {}, global.sedeh['drag-enabled'] = {}), global.ng.core, global.ng.common));
+}(this, (function (exports, core, common) { 'use strict';
 
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
-     */
-    var DataTransfer = (function () {
+    /*! *****************************************************************************
+    Copyright (c) Microsoft Corporation. All rights reserved.
+    Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+    this file except in compliance with the License. You may obtain a copy of the
+    License at http://www.apache.org/licenses/LICENSE-2.0
+
+    THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
+    WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
+    MERCHANTABLITY OR NON-INFRINGEMENT.
+
+    See the Apache Version 2.0 License for specific language governing permissions
+    and limitations under the License.
+    ***************************************************************************** */
+    /* global Reflect, Promise */
+
+    var extendStatics = function(d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+
+    function __extends(d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    }
+
+    var __assign = function() {
+        __assign = Object.assign || function __assign(t) {
+            for (var s, i = 1, n = arguments.length; i < n; i++) {
+                s = arguments[i];
+                for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+            }
+            return t;
+        };
+        return __assign.apply(this, arguments);
+    };
+
+    function __rest(s, e) {
+        var t = {};
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+            t[p] = s[p];
+        if (s != null && typeof Object.getOwnPropertySymbols === "function")
+            for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+                if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+                    t[p[i]] = s[p[i]];
+            }
+        return t;
+    }
+
+    function __decorate(decorators, target, key, desc) {
+        var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+        else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+        return c > 3 && r && Object.defineProperty(target, key, r), r;
+    }
+
+    function __param(paramIndex, decorator) {
+        return function (target, key) { decorator(target, key, paramIndex); }
+    }
+
+    function __metadata(metadataKey, metadataValue) {
+        if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(metadataKey, metadataValue);
+    }
+
+    function __awaiter(thisArg, _arguments, P, generator) {
+        return new (P || (P = Promise))(function (resolve, reject) {
+            function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+            function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+            function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+            step((generator = generator.apply(thisArg, _arguments || [])).next());
+        });
+    }
+
+    function __generator(thisArg, body) {
+        var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+        return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+        function verb(n) { return function (v) { return step([n, v]); }; }
+        function step(op) {
+            if (f) throw new TypeError("Generator is already executing.");
+            while (_) try {
+                if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+                if (y = 0, t) op = [op[0] & 2, t.value];
+                switch (op[0]) {
+                    case 0: case 1: t = op; break;
+                    case 4: _.label++; return { value: op[1], done: false };
+                    case 5: _.label++; y = op[1]; op = [0]; continue;
+                    case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                    default:
+                        if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                        if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                        if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                        if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                        if (t[2]) _.ops.pop();
+                        _.trys.pop(); continue;
+                }
+                op = body.call(thisArg, _);
+            } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+            if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+        }
+    }
+
+    function __exportStar(m, exports) {
+        for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+    }
+
+    function __values(o) {
+        var m = typeof Symbol === "function" && o[Symbol.iterator], i = 0;
+        if (m) return m.call(o);
+        return {
+            next: function () {
+                if (o && i >= o.length) o = void 0;
+                return { value: o && o[i++], done: !o };
+            }
+        };
+    }
+
+    function __read(o, n) {
+        var m = typeof Symbol === "function" && o[Symbol.iterator];
+        if (!m) return o;
+        var i = m.call(o), r, ar = [], e;
+        try {
+            while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
+        }
+        catch (error) { e = { error: error }; }
+        finally {
+            try {
+                if (r && !r.done && (m = i["return"])) m.call(i);
+            }
+            finally { if (e) throw e.error; }
+        }
+        return ar;
+    }
+
+    function __spread() {
+        for (var ar = [], i = 0; i < arguments.length; i++)
+            ar = ar.concat(__read(arguments[i]));
+        return ar;
+    }
+
+    function __spreadArrays() {
+        for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+        for (var r = Array(s), k = 0, i = 0; i < il; i++)
+            for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+                r[k] = a[j];
+        return r;
+    };
+
+    function __await(v) {
+        return this instanceof __await ? (this.v = v, this) : new __await(v);
+    }
+
+    function __asyncGenerator(thisArg, _arguments, generator) {
+        if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+        var g = generator.apply(thisArg, _arguments || []), i, q = [];
+        return i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i;
+        function verb(n) { if (g[n]) i[n] = function (v) { return new Promise(function (a, b) { q.push([n, v, a, b]) > 1 || resume(n, v); }); }; }
+        function resume(n, v) { try { step(g[n](v)); } catch (e) { settle(q[0][3], e); } }
+        function step(r) { r.value instanceof __await ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q[0][2], r); }
+        function fulfill(value) { resume("next", value); }
+        function reject(value) { resume("throw", value); }
+        function settle(f, v) { if (f(v), q.shift(), q.length) resume(q[0][0], q[0][1]); }
+    }
+
+    function __asyncDelegator(o) {
+        var i, p;
+        return i = {}, verb("next"), verb("throw", function (e) { throw e; }), verb("return"), i[Symbol.iterator] = function () { return this; }, i;
+        function verb(n, f) { i[n] = o[n] ? function (v) { return (p = !p) ? { value: __await(o[n](v)), done: n === "return" } : f ? f(v) : v; } : f; }
+    }
+
+    function __asyncValues(o) {
+        if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+        var m = o[Symbol.asyncIterator], i;
+        return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
+        function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
+        function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
+    }
+
+    function __makeTemplateObject(cooked, raw) {
+        if (Object.defineProperty) { Object.defineProperty(cooked, "raw", { value: raw }); } else { cooked.raw = raw; }
+        return cooked;
+    };
+
+    function __importStar(mod) {
+        if (mod && mod.__esModule) return mod;
+        var result = {};
+        if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+        result.default = mod;
+        return result;
+    }
+
+    function __importDefault(mod) {
+        return (mod && mod.__esModule) ? mod : { default: mod };
+    }
+
+    var DataTransfer = /** @class */ (function () {
         function DataTransfer() {
             this.data = {};
         }
-        /**
-         * @param {?} name
-         * @param {?} value
-         * @return {?}
-         */
-        DataTransfer.prototype.setData = /**
-         * @param {?} name
-         * @param {?} value
-         * @return {?}
-         */
-            function (name, value) {
-                this.data[name] = value;
-            };
-        /**
-         * @param {?} name
-         * @return {?}
-         */
-        DataTransfer.prototype.getData = /**
-         * @param {?} name
-         * @return {?}
-         */
-            function (name) {
-                return this.data[name];
-            };
-        DataTransfer.decorators = [
-            { type: core.Injectable }
-        ];
-        /** @nocollapse */
-        DataTransfer.ctorParameters = function () { return []; };
+        DataTransfer.prototype.setData = function (name, value) {
+            this.data[name] = value;
+        };
+        DataTransfer.prototype.getData = function (name) {
+            return this.data[name];
+        };
+        DataTransfer = __decorate([
+            core.Injectable()
+        ], DataTransfer);
         return DataTransfer;
     }());
 
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
-     */
-    var DropDirective = (function () {
+    var DropDirective = /** @class */ (function () {
         function DropDirective(dataTransfer, el) {
             this.dataTransfer = dataTransfer;
             this.el = el;
@@ -59,129 +228,99 @@
             this.onDrop = new core.EventEmitter();
             this.onDragOver = new core.EventEmitter();
         }
-        /**
-         * @param {?} event
-         * @return {?}
-         */
-        DropDirective.prototype.createDropEvent = /**
-         * @param {?} event
-         * @return {?}
-         */
-            function (event) {
-                return {
-                    source: this.dataTransfer.getData("source"),
-                    destination: {
-                        medium: this.medium,
-                        node: this.el.nativeElement,
-                        clientX: event.clientX,
-                        clientY: event.clientY
-                    }
-                };
-            };
-        /**
-         * @param {?} event
-         * @return {?}
-         */
-        DropDirective.prototype.drop = /**
-         * @param {?} event
-         * @return {?}
-         */
-            function (event) {
-                event.preventDefault();
-                /** @type {?} */
-                var dropEvent = this.createDropEvent(event);
-                this.el.nativeElement.classList.remove("drag-over");
-                if (this.dropEnabled(dropEvent)) {
-                    this.onDrop.emit(dropEvent);
+        DropDirective.prototype.createDropEvent = function (event) {
+            return {
+                source: this.dataTransfer.getData("source"),
+                destination: {
+                    medium: this.medium,
+                    node: this.el.nativeElement,
+                    clientX: event.clientX,
+                    clientY: event.clientY
                 }
             };
-        /**
-         * @param {?} event
-         * @return {?}
-         */
-        DropDirective.prototype.dragEnter = /**
-         * @param {?} event
-         * @return {?}
-         */
-            function (event) {
-                event.preventDefault();
-                /** @type {?} */
-                var dropEvent = this.createDropEvent(event);
-                if (this.dropEnabled(dropEvent)) {
-                    event.dataTransfer.dropEffect = this.dropEffect;
-                    this.el.nativeElement.classList.add("drag-over");
-                    this.onDragEnter.emit(dropEvent);
-                }
-                else {
-                    this.el.nativeElement.classList.remove("drag-over");
-                }
-            };
-        /**
-         * @param {?} event
-         * @return {?}
-         */
-        DropDirective.prototype.dragLeave = /**
-         * @param {?} event
-         * @return {?}
-         */
-            function (event) {
-                event.preventDefault();
-                this.el.nativeElement.classList.remove("drag-over");
-                this.onDragLeave.emit(event);
-            };
-        /**
-         * @param {?} event
-         * @return {?}
-         */
-        DropDirective.prototype.dragOver = /**
-         * @param {?} event
-         * @return {?}
-         */
-            function (event) {
-                /** @type {?} */
-                var dropEvent = this.createDropEvent(event);
-                if (this.dropEnabled(dropEvent)) {
-                    event.preventDefault();
-                    this.el.nativeElement.classList.add("drag-over");
-                    this.onDragOver.emit(dropEvent);
-                }
-                else {
-                    this.el.nativeElement.classList.remove("drag-over");
-                }
-            };
-        DropDirective.decorators = [
-            { type: core.Directive, args: [{
-                        selector: '[dropEnabled]'
-                    },] }
-        ];
-        /** @nocollapse */
-        DropDirective.ctorParameters = function () {
-            return [
-                { type: DataTransfer },
-                { type: core.ElementRef }
-            ];
         };
-        DropDirective.propDecorators = {
-            medium: [{ type: core.Input, args: ['medium',] }],
-            dropEffect: [{ type: core.Input }],
-            dropEnabled: [{ type: core.Input, args: ["dropEnabled",] }],
-            onDragEnter: [{ type: core.Output }],
-            onDragLeave: [{ type: core.Output }],
-            onDrop: [{ type: core.Output }],
-            onDragOver: [{ type: core.Output }],
-            drop: [{ type: core.HostListener, args: ['drop', ['$event'],] }],
-            dragEnter: [{ type: core.HostListener, args: ['dragenter', ['$event'],] }],
-            dragLeave: [{ type: core.HostListener, args: ['dragleave', ['$event'],] }],
-            dragOver: [{ type: core.HostListener, args: ['dragover', ['$event'],] }]
+        DropDirective.prototype.drop = function (event) {
+            event.preventDefault();
+            var dropEvent = this.createDropEvent(event);
+            this.el.nativeElement.classList.remove("drag-over");
+            if (this.dropEnabled(dropEvent)) {
+                this.onDrop.emit(dropEvent);
+            }
         };
+        DropDirective.prototype.dragEnter = function (event) {
+            event.preventDefault();
+            var dropEvent = this.createDropEvent(event);
+            if (this.dropEnabled(dropEvent)) {
+                event.dataTransfer.dropEffect = this.dropEffect;
+                this.el.nativeElement.classList.add("drag-over");
+                this.onDragEnter.emit(dropEvent);
+            }
+            else {
+                this.el.nativeElement.classList.remove("drag-over");
+            }
+        };
+        DropDirective.prototype.dragLeave = function (event) {
+            event.preventDefault();
+            this.el.nativeElement.classList.remove("drag-over");
+            this.onDragLeave.emit(event);
+        };
+        DropDirective.prototype.dragOver = function (event) {
+            var dropEvent = this.createDropEvent(event);
+            if (this.dropEnabled(dropEvent)) {
+                event.preventDefault();
+                this.el.nativeElement.classList.add("drag-over");
+                this.onDragOver.emit(dropEvent);
+            }
+            else {
+                this.el.nativeElement.classList.remove("drag-over");
+            }
+        };
+        DropDirective.ctorParameters = function () { return [
+            { type: DataTransfer },
+            { type: core.ElementRef }
+        ]; };
+        __decorate([
+            core.Input('medium')
+        ], DropDirective.prototype, "medium", void 0);
+        __decorate([
+            core.Input()
+        ], DropDirective.prototype, "dropEffect", void 0);
+        __decorate([
+            core.Input("dropEnabled")
+        ], DropDirective.prototype, "dropEnabled", void 0);
+        __decorate([
+            core.Output()
+        ], DropDirective.prototype, "onDragEnter", void 0);
+        __decorate([
+            core.Output()
+        ], DropDirective.prototype, "onDragLeave", void 0);
+        __decorate([
+            core.Output()
+        ], DropDirective.prototype, "onDrop", void 0);
+        __decorate([
+            core.Output()
+        ], DropDirective.prototype, "onDragOver", void 0);
+        __decorate([
+            core.HostListener('drop', ['$event'])
+        ], DropDirective.prototype, "drop", null);
+        __decorate([
+            core.HostListener('dragenter', ['$event'])
+        ], DropDirective.prototype, "dragEnter", null);
+        __decorate([
+            core.HostListener('dragleave', ['$event'])
+        ], DropDirective.prototype, "dragLeave", null);
+        __decorate([
+            core.HostListener('dragover', ['$event'])
+        ], DropDirective.prototype, "dragOver", null);
+        DropDirective = __decorate([
+            core.Directive({
+                selector: '[dropEnabled]'
+            })
+        ], DropDirective);
         return DropDirective;
     }());
 
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
-     */
-    var DragDirective = (function () {
+    var DragDirective = /** @class */ (function () {
         function DragDirective(dataTransfer, el) {
             this.dataTransfer = dataTransfer;
             this.el = el;
@@ -191,120 +330,93 @@
             this.onDragEnd = new core.EventEmitter();
             this.onDrag = new core.EventEmitter();
         }
-        /**
-         * @param {?} event
-         * @return {?}
-         */
-        DragDirective.prototype.dragStart = /**
-         * @param {?} event
-         * @return {?}
-         */
-            function (event) {
-                event.stopPropagation();
-                /** @type {?} */
-                var rect = this.el.nativeElement.getBoundingClientRect();
-                /** @type {?} */
-                var dragEvent = {
-                    medium: this.medium,
-                    node: this.el.nativeElement,
-                    clientX: event.clientX,
-                    clientY: event.clientY,
-                    offset: {
-                        x: event.clientX - rect.left,
-                        y: event.clientY - rect.top
-                    }
-                };
-                if (this.dragEnabled(dragEvent)) {
-                    event.dataTransfer.effectAllowed = this.dragEffect;
-                    if (!this.isIE()) {
-                        event.dataTransfer.setData("makeItTick", "true"); // this is needed just to make drag/drop event trigger.
-                    }
-                    this.dataTransfer.setData("source", dragEvent);
-                    this.onDragStart.emit(dragEvent);
+        DragDirective.prototype.dragStart = function (event) {
+            event.stopPropagation();
+            var rect = this.el.nativeElement.getBoundingClientRect();
+            var dragEvent = {
+                medium: this.medium,
+                node: this.el.nativeElement,
+                clientX: event.clientX,
+                clientY: event.clientY,
+                offset: {
+                    x: event.clientX - rect.left,
+                    y: event.clientY - rect.top
                 }
             };
-        /**
-         * @return {?}
-         */
-        DragDirective.prototype.isIE = /**
-         * @return {?}
-         */
-            function () {
-                /** @type {?} */
-                var match = navigator.userAgent.search(/(?:Edge|MSIE|Trident\/.*; rv:)/);
-                /** @type {?} */
-                var isIE = false;
-                if (match !== -1) {
-                    isIE = true;
+            if (this.dragEnabled(dragEvent)) {
+                event.dataTransfer.effectAllowed = this.dragEffect;
+                if (!this.isIE()) {
+                    event.dataTransfer.setData("makeItTick", "true"); // this is needed just to make drag/drop event trigger.
                 }
-                return isIE;
-            };
-        /**
-         * @param {?} event
-         * @return {?}
-         */
-        DragDirective.prototype.drag = /**
-         * @param {?} event
-         * @return {?}
-         */
-            function (event) {
-                /** @type {?} */
-                var dragEvent = this.dataTransfer.getData("source");
-                dragEvent.clientX = event.clientX;
-                dragEvent.clientY = event.clientY;
-                if (this.dragEnabled(dragEvent)) {
-                    this.onDrag.emit(dragEvent);
-                }
-            };
-        /**
-         * @param {?} event
-         * @return {?}
-         */
-        DragDirective.prototype.dragEnd = /**
-         * @param {?} event
-         * @return {?}
-         */
-            function (event) {
-                event.stopPropagation();
-                /** @type {?} */
-                var dragEvent = this.dataTransfer.getData("source");
-                this.onDragEnd.emit(dragEvent);
-                this.el.nativeElement.classList.remove("drag-over");
-            };
-        DragDirective.decorators = [
-            { type: core.Directive, args: [{
-                        selector: '[dragEnabled]',
-                        host: {
-                            '[draggable]': 'true'
-                        }
-                    },] }
-        ];
-        /** @nocollapse */
-        DragDirective.ctorParameters = function () {
-            return [
-                { type: DataTransfer },
-                { type: core.ElementRef }
-            ];
+                this.dataTransfer.setData("source", dragEvent);
+                this.onDragStart.emit(dragEvent);
+            }
         };
-        DragDirective.propDecorators = {
-            medium: [{ type: core.Input, args: ["medium",] }],
-            dragEffect: [{ type: core.Input, args: ["dragEffect",] }],
-            dragEnabled: [{ type: core.Input, args: ["dragEnabled",] }],
-            onDragStart: [{ type: core.Output }],
-            onDragEnd: [{ type: core.Output }],
-            onDrag: [{ type: core.Output }],
-            dragStart: [{ type: core.HostListener, args: ['dragstart', ['$event'],] }],
-            drag: [{ type: core.HostListener, args: ['dragover', ['$event'],] }],
-            dragEnd: [{ type: core.HostListener, args: ['dragend', ['$event'],] }]
+        DragDirective.prototype.isIE = function () {
+            var match = navigator.userAgent.search(/(?:Edge|MSIE|Trident\/.*; rv:)/);
+            var isIE = false;
+            if (match !== -1) {
+                isIE = true;
+            }
+            return isIE;
         };
+        DragDirective.prototype.drag = function (event) {
+            var dragEvent = this.dataTransfer.getData("source");
+            dragEvent.clientX = event.clientX;
+            dragEvent.clientY = event.clientY;
+            if (this.dragEnabled(dragEvent)) {
+                this.onDrag.emit(dragEvent);
+            }
+        };
+        DragDirective.prototype.dragEnd = function (event) {
+            event.stopPropagation();
+            var dragEvent = this.dataTransfer.getData("source");
+            this.onDragEnd.emit(dragEvent);
+            this.el.nativeElement.classList.remove("drag-over");
+        };
+        DragDirective.ctorParameters = function () { return [
+            { type: DataTransfer },
+            { type: core.ElementRef }
+        ]; };
+        __decorate([
+            core.Input("medium")
+        ], DragDirective.prototype, "medium", void 0);
+        __decorate([
+            core.Input("dragEffect")
+        ], DragDirective.prototype, "dragEffect", void 0);
+        __decorate([
+            core.Input("dragEnabled")
+        ], DragDirective.prototype, "dragEnabled", void 0);
+        __decorate([
+            core.Output()
+        ], DragDirective.prototype, "onDragStart", void 0);
+        __decorate([
+            core.Output()
+        ], DragDirective.prototype, "onDragEnd", void 0);
+        __decorate([
+            core.Output()
+        ], DragDirective.prototype, "onDrag", void 0);
+        __decorate([
+            core.HostListener('dragstart', ['$event'])
+        ], DragDirective.prototype, "dragStart", null);
+        __decorate([
+            core.HostListener('dragover', ['$event'])
+        ], DragDirective.prototype, "drag", null);
+        __decorate([
+            core.HostListener('dragend', ['$event'])
+        ], DragDirective.prototype, "dragEnd", null);
+        DragDirective = __decorate([
+            core.Directive({
+                selector: '[dragEnabled]',
+                host: {
+                    '[draggable]': 'true'
+                }
+            })
+        ], DragDirective);
         return DragDirective;
     }());
 
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
-     */
-    var DragInDocumentDirective = (function () {
+    var DragInDocumentDirective = /** @class */ (function () {
         function DragInDocumentDirective(dataTransfer, el) {
             this.dataTransfer = dataTransfer;
             this.el = el;
@@ -314,165 +426,127 @@
             this.onDragEnd = new core.EventEmitter();
             this.onDrag = new core.EventEmitter();
         }
-        /**
-         * @param {?} event
-         * @return {?}
-         */
-        DragInDocumentDirective.prototype.dragStart = /**
-         * @param {?} event
-         * @return {?}
-         */
-            function (event) {
-                event.stopPropagation();
-                /** @type {?} */
-                var rect = this.el.nativeElement.getBoundingClientRect();
-                /** @type {?} */
-                var dragEvent = {
-                    medium: this.medium,
-                    node: this.el.nativeElement,
-                    clientX: event.clientX,
-                    clientY: event.clientY,
-                    offset: {
-                        x: event.clientX - rect.left,
-                        y: event.clientY - rect.top
-                    }
-                };
-                if (this.dragInDocument(dragEvent)) {
-                    event.dataTransfer.effectAllowed = this.dragEffect;
-                    if (!this.isIE()) {
-                        event.dataTransfer.setData("makeItTick", "true"); // this is needed just to make drag/drop event trigger.
-                    }
-                    this.dataTransfer.setData("source", dragEvent);
-                    this.onDragStart.emit(dragEvent);
+        DragInDocumentDirective.prototype.dragStart = function (event) {
+            event.stopPropagation();
+            var rect = this.el.nativeElement.getBoundingClientRect();
+            var dragEvent = {
+                medium: this.medium,
+                node: this.el.nativeElement,
+                clientX: event.clientX,
+                clientY: event.clientY,
+                offset: {
+                    x: event.clientX - rect.left,
+                    y: event.clientY - rect.top
                 }
             };
-        /**
-         * @return {?}
-         */
-        DragInDocumentDirective.prototype.isIE = /**
-         * @return {?}
-         */
-            function () {
-                /** @type {?} */
-                var match = navigator.userAgent.search(/(?:Edge|MSIE|Trident\/.*; rv:)/);
-                /** @type {?} */
-                var isIE = false;
-                if (match !== -1) {
-                    isIE = true;
+            if (this.dragInDocument(dragEvent)) {
+                event.dataTransfer.effectAllowed = this.dragEffect;
+                if (!this.isIE()) {
+                    event.dataTransfer.setData("makeItTick", "true"); // this is needed just to make drag/drop event trigger.
                 }
-                return isIE;
-            };
-        /**
-         * @param {?} event
-         * @return {?}
-         */
-        DragInDocumentDirective.prototype.drag = /**
-         * @param {?} event
-         * @return {?}
-         */
-            function (event) {
-                /** @type {?} */
-                var dragEvent = this.dataTransfer.getData("source");
-                dragEvent.clientX = event.clientX;
-                dragEvent.clientY = event.clientY;
-                if (this.dragInDocument(dragEvent)) {
-                    this.onDrag.emit(dragEvent);
-                }
-            };
-        /**
-         * @param {?} event
-         * @return {?}
-         */
-        DragInDocumentDirective.prototype.dragEnd = /**
-         * @param {?} event
-         * @return {?}
-         */
-            function (event) {
-                event.stopPropagation();
-                /** @type {?} */
-                var dragEvent = this.dataTransfer.getData("source");
-                this.onDragEnd.emit(dragEvent);
-                this.el.nativeElement.classList.remove("drag-over");
-            };
-        DragInDocumentDirective.decorators = [
-            { type: core.Directive, args: [{
-                        selector: '[dragInDocument]',
-                        host: {
-                            '[draggable]': 'true'
-                        }
-                    },] }
-        ];
-        /** @nocollapse */
-        DragInDocumentDirective.ctorParameters = function () {
-            return [
-                { type: DataTransfer },
-                { type: core.ElementRef }
-            ];
+                this.dataTransfer.setData("source", dragEvent);
+                this.onDragStart.emit(dragEvent);
+            }
         };
-        DragInDocumentDirective.propDecorators = {
-            medium: [{ type: core.Input, args: ["medium",] }],
-            dragEffect: [{ type: core.Input, args: ["dragEffect",] }],
-            dragInDocument: [{ type: core.Input, args: ["dragInDocument",] }],
-            onDragStart: [{ type: core.Output }],
-            onDragEnd: [{ type: core.Output }],
-            onDrag: [{ type: core.Output }],
-            dragStart: [{ type: core.HostListener, args: ['dragstart', ['$event'],] }],
-            drag: [{ type: core.HostListener, args: ['document:dragover', ['$event'],] }],
-            dragEnd: [{ type: core.HostListener, args: ['document:dragend', ['$event'],] }]
+        DragInDocumentDirective.prototype.isIE = function () {
+            var match = navigator.userAgent.search(/(?:Edge|MSIE|Trident\/.*; rv:)/);
+            var isIE = false;
+            if (match !== -1) {
+                isIE = true;
+            }
+            return isIE;
         };
+        DragInDocumentDirective.prototype.drag = function (event) {
+            var dragEvent = this.dataTransfer.getData("source");
+            dragEvent.clientX = event.clientX;
+            dragEvent.clientY = event.clientY;
+            if (this.dragInDocument(dragEvent)) {
+                this.onDrag.emit(dragEvent);
+            }
+        };
+        DragInDocumentDirective.prototype.dragEnd = function (event) {
+            event.stopPropagation();
+            var dragEvent = this.dataTransfer.getData("source");
+            this.onDragEnd.emit(dragEvent);
+            this.el.nativeElement.classList.remove("drag-over");
+        };
+        DragInDocumentDirective.ctorParameters = function () { return [
+            { type: DataTransfer },
+            { type: core.ElementRef }
+        ]; };
+        __decorate([
+            core.Input("medium")
+        ], DragInDocumentDirective.prototype, "medium", void 0);
+        __decorate([
+            core.Input("dragEffect")
+        ], DragInDocumentDirective.prototype, "dragEffect", void 0);
+        __decorate([
+            core.Input("dragInDocument")
+        ], DragInDocumentDirective.prototype, "dragInDocument", void 0);
+        __decorate([
+            core.Output()
+        ], DragInDocumentDirective.prototype, "onDragStart", void 0);
+        __decorate([
+            core.Output()
+        ], DragInDocumentDirective.prototype, "onDragEnd", void 0);
+        __decorate([
+            core.Output()
+        ], DragInDocumentDirective.prototype, "onDrag", void 0);
+        __decorate([
+            core.HostListener('dragstart', ['$event'])
+        ], DragInDocumentDirective.prototype, "dragStart", null);
+        __decorate([
+            core.HostListener('document:dragover', ['$event'])
+        ], DragInDocumentDirective.prototype, "drag", null);
+        __decorate([
+            core.HostListener('document:dragend', ['$event'])
+        ], DragInDocumentDirective.prototype, "dragEnd", null);
+        DragInDocumentDirective = __decorate([
+            core.Directive({
+                selector: '[dragInDocument]',
+                host: {
+                    '[draggable]': 'true'
+                }
+            })
+        ], DragInDocumentDirective);
         return DragInDocumentDirective;
     }());
 
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
-     */
-    var DragDropModule = (function () {
+    var DragDropModule = /** @class */ (function () {
         function DragDropModule() {
         }
-        DragDropModule.decorators = [
-            { type: core.NgModule, args: [{
-                        imports: [
-                            common.CommonModule
-                        ],
-                        declarations: [
-                            DragDirective,
-                            DragInDocumentDirective,
-                            DropDirective
-                        ],
-                        exports: [
-                            DragDirective,
-                            DragInDocumentDirective,
-                            DropDirective
-                        ],
-                        entryComponents: [],
-                        providers: [
-                            DataTransfer
-                        ],
-                        schemas: [core.CUSTOM_ELEMENTS_SCHEMA]
-                    },] }
-        ];
+        DragDropModule = __decorate([
+            core.NgModule({
+                imports: [
+                    common.CommonModule
+                ],
+                declarations: [
+                    DragDirective,
+                    DragInDocumentDirective,
+                    DropDirective
+                ],
+                exports: [
+                    DragDirective,
+                    DragInDocumentDirective,
+                    DropDirective
+                ],
+                entryComponents: [],
+                providers: [
+                    DataTransfer
+                ],
+                schemas: [core.CUSTOM_ELEMENTS_SCHEMA]
+            })
+        ], DragDropModule);
         return DragDropModule;
     }());
 
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
-     */
-
-    /**
-     * @fileoverview added by tsickle
-     * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
-     */
-
-    exports.DropDirective = DropDirective;
     exports.DragDirective = DragDirective;
-    exports.DragInDocumentDirective = DragInDocumentDirective;
     exports.DragDropModule = DragDropModule;
+    exports.DragInDocumentDirective = DragInDocumentDirective;
+    exports.DropDirective = DropDirective;
     exports.ɵa = DataTransfer;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
 })));
-
-//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoic2VkZWgtZHJhZy1lbmFibGVkLnVtZC5qcy5tYXAiLCJzb3VyY2VzIjpbIm5nOi8vQHNlZGVoL2RyYWctZW5hYmxlZC9zcmMvYXBwL2RyYWctZW5hYmxlZC9kYXRhdHJhbnNmZXIudHMiLCJuZzovL0BzZWRlaC9kcmFnLWVuYWJsZWQvc3JjL2FwcC9kcmFnLWVuYWJsZWQvZHJvcC5kaXJlY3RpdmUudHMiLCJuZzovL0BzZWRlaC9kcmFnLWVuYWJsZWQvc3JjL2FwcC9kcmFnLWVuYWJsZWQvZHJhZy5kaXJlY3RpdmUudHMiLCJuZzovL0BzZWRlaC9kcmFnLWVuYWJsZWQvc3JjL2FwcC9kcmFnLWVuYWJsZWQvZHJhZy1vbmx5LmRpcmVjdGl2ZS50cyIsIm5nOi8vQHNlZGVoL2RyYWctZW5hYmxlZC9zcmMvYXBwL2RyYWctZW5hYmxlZC9kcmFnZHJvcC5tb2R1bGUudHMiXSwic291cmNlc0NvbnRlbnQiOlsiLypcclxuICogVGhlIG1haW4gcHVycG9zZSBmb3IgdGhpcyBvYmplY3QgaXMgdG8gZml4IHRoZSBzaG9ydCBjb21pbmcgb2YgZHJhZyBldmVudCBkYXRhVHJhbnNmZXIgb2JqZWN0LlxyXG4gKiBJdCBhY2NlcHRzIG9ubHkgU3RyaW5nIHZhbHVlcy4gSG93ZXZlciwgaWYgdGhlcmUgaXMgYSBuZWVkIHRvIHBhc3MgYW4gb2JqZWN0LCB0aGlzIHNpbmdsZXRvbmNhbiBcclxuICogY29tZSB0byB0aGUgcmVzZWN1ZS4gXHJcbiAqL1xyXG5pbXBvcnQgeyBJbmplY3RhYmxlLCBJbmplY3QgIH0gZnJvbSAnQGFuZ3VsYXIvY29yZSc7XHJcblxyXG5ASW5qZWN0YWJsZSgpXHJcbmV4cG9ydCBjbGFzcyBEYXRhVHJhbnNmZXIge1xyXG4gICAgXHJcbiAgICBwcml2YXRlIGRhdGE6IGFueSA9IHt9O1xyXG5cclxuICAgIGNvbnN0cnVjdG9yKCkge31cclxuXHJcbiAgICBzZXREYXRhKG5hbWU6IHN0cmluZywgdmFsdWU6IGFueSl7XHJcbiAgICAgICAgdGhpcy5kYXRhW25hbWVdID0gdmFsdWU7XHJcbiAgICB9XHJcblxyXG4gICAgZ2V0RGF0YShuYW1lOiBzdHJpbmcpIHtcclxuICAgICAgICByZXR1cm4gdGhpcy5kYXRhW25hbWVdO1xyXG4gICAgfVxyXG4gICAgICAgICAgICBcclxufSIsImltcG9ydCB7XHJcbiAgICBEaXJlY3RpdmUsXHJcbiAgICBFbGVtZW50UmVmLFxyXG4gICAgSG9zdExpc3RlbmVyLFxyXG4gICAgSW5wdXQsXHJcbiAgICBPdXRwdXQsXHJcbiAgICBFdmVudEVtaXR0ZXJcclxufSBmcm9tICdAYW5ndWxhci9jb3JlJztcclxuXHJcbmltcG9ydCB7IERhdGFUcmFuc2ZlciB9IGZyb20gJy4vZGF0YXRyYW5zZmVyJztcclxuaW1wb3J0IHsgRHJvcEV2ZW50IH0gZnJvbSAnLi9kcmFnLWRyb3AuaW50ZXJmYWNlcyc7XHJcblxyXG5cclxuQERpcmVjdGl2ZSh7XHJcbiAgICBzZWxlY3RvcjogJ1tkcm9wRW5hYmxlZF0nXHJcbn0pXHJcbmV4cG9ydCBjbGFzcyBEcm9wRGlyZWN0aXZlIHtcclxuICAgIFxyXG4gICAgQElucHV0KCdtZWRpdW0nKVxyXG4gICAgbWVkaXVtOiBhbnk7XHJcbiAgICAgICAgXHJcbiAgICBASW5wdXQoKVxyXG4gICAgZHJvcEVmZmVjdCA9IFwibW92ZVwiO1xyXG4gICAgICAgIFxyXG4gICAgQElucHV0KFwiZHJvcEVuYWJsZWRcIilcclxuICAgIGRyb3BFbmFibGVkID0gKGV2ZW50OiBEcm9wRXZlbnQpID0+IHRydWU7XHJcblxyXG4gICAgQE91dHB1dCgpXHJcbiAgICBvbkRyYWdFbnRlcjogRXZlbnRFbWl0dGVyPGFueT4gPSBuZXcgRXZlbnRFbWl0dGVyKCk7XHJcbiAgICBcclxuICAgIEBPdXRwdXQoKVxyXG4gICAgb25EcmFnTGVhdmU6IEV2ZW50RW1pdHRlcjxhbnk+ID0gbmV3IEV2ZW50RW1pdHRlcigpO1xyXG4gICAgXHJcbiAgICBAT3V0cHV0KClcclxuICAgIG9uRHJvcDogRXZlbnRFbWl0dGVyPGFueT4gPSBuZXcgRXZlbnRFbWl0dGVyKCk7XHJcbiAgICBcclxuICAgIEBPdXRwdXQoKVxyXG4gICAgb25EcmFnT3ZlcjogRXZlbnRFbWl0dGVyPGFueT4gPSBuZXcgRXZlbnRFbWl0dGVyKCk7XHJcblxyXG4gICAgY29uc3RydWN0b3IoXHJcbiAgICAgICAgcHJpdmF0ZSBkYXRhVHJhbnNmZXI6IERhdGFUcmFuc2ZlcixcclxuICAgICAgICBwcml2YXRlIGVsOiBFbGVtZW50UmVmXHJcbiAgICApIHt9XHJcbiAgICBcclxuXHRwcml2YXRlIGNyZWF0ZURyb3BFdmVudChldmVudDogYW55KTogRHJvcEV2ZW50IHtcclxuXHRcdHJldHVybiB7XHJcbiAgICAgICAgICAgIHNvdXJjZTogdGhpcy5kYXRhVHJhbnNmZXIuZ2V0RGF0YShcInNvdXJjZVwiKSxcclxuICAgICAgICAgICAgZGVzdGluYXRpb246IHtcclxuICAgICAgICAgICAgICAgIG1lZGl1bTogdGhpcy5tZWRpdW0sXHJcbiAgICAgICAgICAgICAgICBub2RlOiB0aGlzLmVsLm5hdGl2ZUVsZW1lbnQsXHJcbiAgICAgICAgICAgICAgICBjbGllbnRYOiBldmVudC5jbGllbnRYLFxyXG4gICAgICAgICAgICAgICAgY2xpZW50WTogZXZlbnQuY2xpZW50WVxyXG4gICAgICAgICAgICB9XHJcblx0XHR9O1xyXG5cdH1cclxuXHJcbiAgICBASG9zdExpc3RlbmVyKCdkcm9wJywgWyckZXZlbnQnXSlcclxuICAgIGRyb3AoZXZlbnQ6IGFueSkge1xyXG4gICAgICAgIGV2ZW50LnByZXZlbnREZWZhdWx0KCk7XHJcbiAgICAgICAgY29uc3QgZHJvcEV2ZW50ID0gdGhpcy5jcmVhdGVEcm9wRXZlbnQoZXZlbnQpO1xyXG5cclxuICAgICAgICB0aGlzLmVsLm5hdGl2ZUVsZW1lbnQuY2xhc3NMaXN0LnJlbW92ZShcImRyYWctb3ZlclwiKTtcclxuXHJcbiAgICAgICAgaWYgKHRoaXMuZHJvcEVuYWJsZWQoZHJvcEV2ZW50KSkge1xyXG4gICAgICAgICAgICB0aGlzLm9uRHJvcC5lbWl0KGRyb3BFdmVudCk7XHJcbiAgICAgICAgfVxyXG4gICAgfVxyXG4gICAgXHJcbiAgICBASG9zdExpc3RlbmVyKCdkcmFnZW50ZXInLCBbJyRldmVudCddKSBcclxuICAgIGRyYWdFbnRlcihldmVudDogYW55KSB7XHJcbiAgICAgICAgZXZlbnQucHJldmVudERlZmF1bHQoKTtcclxuICAgICAgICBjb25zdCBkcm9wRXZlbnQgPSB0aGlzLmNyZWF0ZURyb3BFdmVudChldmVudCk7XHJcblxyXG4gICAgICAgIGlmICh0aGlzLmRyb3BFbmFibGVkKGRyb3BFdmVudCkpIHtcclxuICAgICAgICAgICAgZXZlbnQuZGF0YVRyYW5zZmVyLmRyb3BFZmZlY3QgPSB0aGlzLmRyb3BFZmZlY3Q7XHJcblxyXG4gICAgICAgICAgICB0aGlzLmVsLm5hdGl2ZUVsZW1lbnQuY2xhc3NMaXN0LmFkZChcImRyYWctb3ZlclwiKTtcclxuICAgICAgICAgICAgdGhpcy5vbkRyYWdFbnRlci5lbWl0KGRyb3BFdmVudCk7XHJcbiAgICAgICAgfSBlbHNlIHtcclxuICAgICAgICAgICAgdGhpcy5lbC5uYXRpdmVFbGVtZW50LmNsYXNzTGlzdC5yZW1vdmUoXCJkcmFnLW92ZXJcIik7XHJcbiAgICAgICAgfVxyXG4gICAgfVxyXG4gICAgXHJcbiAgICBASG9zdExpc3RlbmVyKCdkcmFnbGVhdmUnLCBbJyRldmVudCddKSBcclxuICAgIGRyYWdMZWF2ZShldmVudDogYW55KSB7XHJcbiAgICAgICAgZXZlbnQucHJldmVudERlZmF1bHQoKTtcclxuICAgICAgICAgICAgICAgIFxyXG4gICAgICAgIHRoaXMuZWwubmF0aXZlRWxlbWVudC5jbGFzc0xpc3QucmVtb3ZlKFwiZHJhZy1vdmVyXCIpO1xyXG4gICAgICAgIHRoaXMub25EcmFnTGVhdmUuZW1pdChldmVudCk7XHJcbiAgICB9XHJcbiAgICBcclxuICAgIEBIb3N0TGlzdGVuZXIoJ2RyYWdvdmVyJywgWyckZXZlbnQnXSkgXHJcbiAgICBkcmFnT3ZlcihldmVudDogYW55KSB7XHJcbiAgICAgICAgY29uc3QgZHJvcEV2ZW50ID0gdGhpcy5jcmVhdGVEcm9wRXZlbnQoZXZlbnQpO1xyXG5cclxuICAgICAgICBpZiAodGhpcy5kcm9wRW5hYmxlZChkcm9wRXZlbnQpKSB7XHJcbiAgICAgICAgICAgIGV2ZW50LnByZXZlbnREZWZhdWx0KCk7XHJcbiAgICAgICAgICAgIHRoaXMuZWwubmF0aXZlRWxlbWVudC5jbGFzc0xpc3QuYWRkKFwiZHJhZy1vdmVyXCIpO1xyXG4gICAgICAgICAgICB0aGlzLm9uRHJhZ092ZXIuZW1pdChkcm9wRXZlbnQpO1xyXG4gICAgICAgIH0gZWxzZSB7XHJcbiAgICAgICAgICAgIHRoaXMuZWwubmF0aXZlRWxlbWVudC5jbGFzc0xpc3QucmVtb3ZlKFwiZHJhZy1vdmVyXCIpO1xyXG4gICAgICAgIH1cclxuICAgIH1cclxufSIsImltcG9ydCB7XHJcbiAgICBEaXJlY3RpdmUsXHJcbiAgICBFbGVtZW50UmVmLFxyXG4gICAgSG9zdExpc3RlbmVyLFxyXG4gICAgSW5wdXQsXHJcbiAgICBPdXRwdXQsXHJcbiAgICBFdmVudEVtaXR0ZXJcclxufSBmcm9tICdAYW5ndWxhci9jb3JlJztcclxuaW1wb3J0IHsgRGF0YVRyYW5zZmVyIH0gZnJvbSAnLi9kYXRhdHJhbnNmZXInO1xyXG5pbXBvcnQgeyBEcmFnRXZlbnQgfSBmcm9tICcuL2RyYWctZHJvcC5pbnRlcmZhY2VzJztcclxuXHJcbkBEaXJlY3RpdmUoe1xyXG4gICAgc2VsZWN0b3I6ICdbZHJhZ0VuYWJsZWRdJyxcclxuICAgIGhvc3Q6IHtcclxuICAgICAgICAnW2RyYWdnYWJsZV0nOiAndHJ1ZSdcclxuICAgIH1cclxufSlcclxuZXhwb3J0IGNsYXNzIERyYWdEaXJlY3RpdmUge1xyXG4gICAgXHJcbiAgICBASW5wdXQoXCJtZWRpdW1cIilcclxuICAgIG1lZGl1bTogYW55O1xyXG4gICAgXHJcbiAgICBASW5wdXQoXCJkcmFnRWZmZWN0XCIpXHJcbiAgICBkcmFnRWZmZWN0ID0gXCJtb3ZlXCI7XHJcbiAgICBcclxuICAgIEBJbnB1dChcImRyYWdFbmFibGVkXCIpXHJcbiAgICBkcmFnRW5hYmxlZCA9IChldmVudDogRHJhZ0V2ZW50KSA9PiB0cnVlO1xyXG4gICAgXHJcbiAgICBAT3V0cHV0KClcclxuICAgIG9uRHJhZ1N0YXJ0OiBFdmVudEVtaXR0ZXI8YW55PiA9IG5ldyBFdmVudEVtaXR0ZXIoKTtcclxuICAgIFxyXG4gICAgQE91dHB1dCgpXHJcbiAgICBvbkRyYWdFbmQ6IEV2ZW50RW1pdHRlcjxhbnk+ID0gbmV3IEV2ZW50RW1pdHRlcigpO1xyXG4gICAgXHJcbiAgICBAT3V0cHV0KClcclxuICAgIG9uRHJhZzogRXZlbnRFbWl0dGVyPGFueT4gPSBuZXcgRXZlbnRFbWl0dGVyKCk7XHJcbiAgICBcclxuICAgIHByaXZhdGUgaGFuZGxlOiBhbnk7XHJcbiAgICAgICAgXHJcbiAgICBjb25zdHJ1Y3RvcihcclxuICAgICAgICBwcml2YXRlIGRhdGFUcmFuc2ZlcjogRGF0YVRyYW5zZmVyLFxyXG4gICAgICAgIHByaXZhdGUgZWw6IEVsZW1lbnRSZWZcclxuICAgICkge1xyXG4gICAgfVxyXG5cclxuICAgIEBIb3N0TGlzdGVuZXIoJ2RyYWdzdGFydCcsIFsnJGV2ZW50J10pIFxyXG4gICAgZHJhZ1N0YXJ0KGV2ZW50OiBhbnkpIHtcclxuICAgICAgICBldmVudC5zdG9wUHJvcGFnYXRpb24oKTtcclxuXHJcbiAgICAgICAgY29uc3QgcmVjdCA9IHRoaXMuZWwubmF0aXZlRWxlbWVudC5nZXRCb3VuZGluZ0NsaWVudFJlY3QoKTtcclxuICAgICAgICBjb25zdCBkcmFnRXZlbnQ6IERyYWdFdmVudCA9IHtcclxuICAgICAgICAgICAgbWVkaXVtOiB0aGlzLm1lZGl1bSxcclxuICAgICAgICAgICAgbm9kZTogdGhpcy5lbC5uYXRpdmVFbGVtZW50LFxyXG4gICAgICAgICAgICBjbGllbnRYOiBldmVudC5jbGllbnRYLFxyXG4gICAgICAgICAgICBjbGllbnRZOiBldmVudC5jbGllbnRZLFxyXG4gICAgICAgICAgICBvZmZzZXQ6IHtcclxuICAgICAgICAgICAgICAgIHg6IGV2ZW50LmNsaWVudFggLSByZWN0LmxlZnQsIFxyXG4gICAgICAgICAgICAgICAgeTogZXZlbnQuY2xpZW50WSAtIHJlY3QudG9wXHJcbiAgICAgICAgICAgIH1cclxuICAgICAgICB9XHJcbiAgICAgICAgaWYgKHRoaXMuZHJhZ0VuYWJsZWQoZHJhZ0V2ZW50KSkge1xyXG4gICAgICAgICAgICBldmVudC5kYXRhVHJhbnNmZXIuZWZmZWN0QWxsb3dlZCA9IHRoaXMuZHJhZ0VmZmVjdDtcclxuICAgICAgICAgICAgaWYgKCF0aGlzLmlzSUUoKSkge1xyXG4gICAgICAgICAgICAgICAgZXZlbnQuZGF0YVRyYW5zZmVyLnNldERhdGEoXCJtYWtlSXRUaWNrXCIsXCJ0cnVlXCIpOy8vIHRoaXMgaXMgbmVlZGVkIGp1c3QgdG8gbWFrZSBkcmFnL2Ryb3AgZXZlbnQgdHJpZ2dlci5cclxuICAgICAgICAgICAgfVxyXG4gICAgICAgICAgICB0aGlzLmRhdGFUcmFuc2Zlci5zZXREYXRhKFwic291cmNlXCIsIGRyYWdFdmVudCk7XHJcbiAgICAgICAgICAgIHRoaXMub25EcmFnU3RhcnQuZW1pdChkcmFnRXZlbnQpO1xyXG4gICAgICAgIH1cclxuICAgIH1cclxuICAgIHByaXZhdGUgaXNJRSgpIHtcclxuICAgICAgICBjb25zdCBtYXRjaCA9IG5hdmlnYXRvci51c2VyQWdlbnQuc2VhcmNoKC8oPzpFZGdlfE1TSUV8VHJpZGVudFxcLy4qOyBydjopLyk7XHJcbiAgICAgICAgbGV0IGlzSUUgPSBmYWxzZTtcclxuICAgIFxyXG4gICAgICAgIGlmIChtYXRjaCAhPT0gLTEpIHtcclxuICAgICAgICAgICAgaXNJRSA9IHRydWU7XHJcbiAgICAgICAgfVxyXG4gICAgICAgIHJldHVybiBpc0lFO1xyXG4gICAgfVxyXG5cclxuICAgIEBIb3N0TGlzdGVuZXIoJ2RyYWdvdmVyJywgWyckZXZlbnQnXSkgXHJcbiAgICBkcmFnKGV2ZW50OiBhbnkpIHtcclxuICAgICAgICBjb25zdCBkcmFnRXZlbnQ6IERyYWdFdmVudCA9IHRoaXMuZGF0YVRyYW5zZmVyLmdldERhdGEoXCJzb3VyY2VcIik7XHJcblxyXG4gICAgICAgIGRyYWdFdmVudC5jbGllbnRYID0gZXZlbnQuY2xpZW50WDtcclxuICAgICAgICBkcmFnRXZlbnQuY2xpZW50WSA9IGV2ZW50LmNsaWVudFk7XHJcbiAgICAgICAgXHJcbiAgICAgICAgaWYgKHRoaXMuZHJhZ0VuYWJsZWQoZHJhZ0V2ZW50KSkge1xyXG4gICAgICAgICAgICB0aGlzLm9uRHJhZy5lbWl0KGRyYWdFdmVudCk7XHJcbiAgICAgICAgfVxyXG4gICAgfVxyXG4gICAgXHJcbiAgICBASG9zdExpc3RlbmVyKCdkcmFnZW5kJywgWyckZXZlbnQnXSkgXHJcbiAgICBkcmFnRW5kKGV2ZW50OiBhbnkpIHtcclxuICAgICAgICBldmVudC5zdG9wUHJvcGFnYXRpb24oKTtcclxuICAgICAgICBjb25zdCBkcmFnRXZlbnQ6IERyYWdFdmVudCA9IHRoaXMuZGF0YVRyYW5zZmVyLmdldERhdGEoXCJzb3VyY2VcIik7ICAgICAgICBcclxuICAgICAgICB0aGlzLm9uRHJhZ0VuZC5lbWl0KGRyYWdFdmVudCk7XHJcbiAgICAgICAgdGhpcy5lbC5uYXRpdmVFbGVtZW50LmNsYXNzTGlzdC5yZW1vdmUoXCJkcmFnLW92ZXJcIik7XHJcbiAgICB9XHJcbn1cclxuIiwiLypcclxuICogVGhpcyBkaXJlY3RpdmUgaXMgYmVzdCBzdWl0ZWQgZm9yIGRyYWdnaW5nIGFuIGVsZW1lbnQgd2l0aCBjb25maW5lbWVudCBvZiBkb2N1bWVudC4gIGl0IGlzIG5vdCByZWNvbWVuZGVkXHJcbiAqIHRvIGJlIHVzZWQgaW4gY29uanVuY3Rpb24gd2l0aCBhIGRyb3Agb3BlcmF0aW9uIGlmIGFuIGVsZW1lbnQgaXMgdG8gYmUgZHJvcHBlZCBvbiBhbm90aGVyIGVsZW1lbnQgd2l0aGluIFxyXG4gKiBhIGhlaXJhcmNoeSBvZiBub2Rlcy5cclxuICovXHJcbmltcG9ydCB7XHJcbiAgICBEaXJlY3RpdmUsXHJcbiAgICBFbGVtZW50UmVmLFxyXG4gICAgSG9zdExpc3RlbmVyLFxyXG4gICAgSW5wdXQsXHJcbiAgICBPdXRwdXQsXHJcbiAgICBFdmVudEVtaXR0ZXJcclxufSBmcm9tICdAYW5ndWxhci9jb3JlJztcclxuaW1wb3J0IHsgRGF0YVRyYW5zZmVyIH0gZnJvbSAnLi9kYXRhdHJhbnNmZXInO1xyXG5pbXBvcnQgeyBEcmFnRXZlbnQgfSBmcm9tICcuL2RyYWctZHJvcC5pbnRlcmZhY2VzJztcclxuXHJcbkBEaXJlY3RpdmUoe1xyXG4gICAgc2VsZWN0b3I6ICdbZHJhZ0luRG9jdW1lbnRdJyxcclxuICAgIGhvc3Q6IHtcclxuICAgICAgICAnW2RyYWdnYWJsZV0nOiAndHJ1ZSdcclxuICAgIH1cclxufSlcclxuZXhwb3J0IGNsYXNzIERyYWdJbkRvY3VtZW50RGlyZWN0aXZlIHtcclxuICAgIFxyXG4gICAgQElucHV0KFwibWVkaXVtXCIpXHJcbiAgICBtZWRpdW06IGFueTtcclxuICAgIFxyXG4gICAgQElucHV0KFwiZHJhZ0VmZmVjdFwiKVxyXG4gICAgZHJhZ0VmZmVjdCA9IFwibW92ZVwiO1xyXG4gICAgXHJcbiAgICBASW5wdXQoXCJkcmFnSW5Eb2N1bWVudFwiKVxyXG4gICAgZHJhZ0luRG9jdW1lbnQgPSAoZXZlbnQ6IERyYWdFdmVudCkgPT4gdHJ1ZTtcclxuICAgIFxyXG4gICAgQE91dHB1dCgpXHJcbiAgICBvbkRyYWdTdGFydDogRXZlbnRFbWl0dGVyPGFueT4gPSBuZXcgRXZlbnRFbWl0dGVyKCk7XHJcbiAgICBcclxuICAgIEBPdXRwdXQoKVxyXG4gICAgb25EcmFnRW5kOiBFdmVudEVtaXR0ZXI8YW55PiA9IG5ldyBFdmVudEVtaXR0ZXIoKTtcclxuICAgIFxyXG4gICAgQE91dHB1dCgpXHJcbiAgICBvbkRyYWc6IEV2ZW50RW1pdHRlcjxhbnk+ID0gbmV3IEV2ZW50RW1pdHRlcigpO1xyXG4gICAgXHJcbiAgICBwcml2YXRlIGhhbmRsZTogYW55O1xyXG4gICAgICAgIFxyXG4gICAgY29uc3RydWN0b3IoXHJcbiAgICAgICAgcHJpdmF0ZSBkYXRhVHJhbnNmZXI6IERhdGFUcmFuc2ZlcixcclxuICAgICAgICBwcml2YXRlIGVsOiBFbGVtZW50UmVmXHJcbiAgICApIHtcclxuICAgIH1cclxuXHJcbiAgICBASG9zdExpc3RlbmVyKCdkcmFnc3RhcnQnLCBbJyRldmVudCddKSBcclxuICAgIGRyYWdTdGFydChldmVudDogYW55KSB7XHJcbiAgICAgICAgZXZlbnQuc3RvcFByb3BhZ2F0aW9uKCk7XHJcblxyXG4gICAgICAgIGNvbnN0IHJlY3QgPSB0aGlzLmVsLm5hdGl2ZUVsZW1lbnQuZ2V0Qm91bmRpbmdDbGllbnRSZWN0KCk7XHJcbiAgICAgICAgY29uc3QgZHJhZ0V2ZW50OiBEcmFnRXZlbnQgPSB7XHJcbiAgICAgICAgICAgIG1lZGl1bTogdGhpcy5tZWRpdW0sXHJcbiAgICAgICAgICAgIG5vZGU6IHRoaXMuZWwubmF0aXZlRWxlbWVudCxcclxuICAgICAgICAgICAgY2xpZW50WDogZXZlbnQuY2xpZW50WCxcclxuICAgICAgICAgICAgY2xpZW50WTogZXZlbnQuY2xpZW50WSxcclxuICAgICAgICAgICAgb2Zmc2V0OiB7XHJcbiAgICAgICAgICAgICAgICB4OiBldmVudC5jbGllbnRYIC0gcmVjdC5sZWZ0LCBcclxuICAgICAgICAgICAgICAgIHk6IGV2ZW50LmNsaWVudFkgLSByZWN0LnRvcFxyXG4gICAgICAgICAgICB9XHJcbiAgICAgICAgfVxyXG4gICAgICAgIGlmICh0aGlzLmRyYWdJbkRvY3VtZW50KGRyYWdFdmVudCkpIHtcclxuICAgICAgICAgICAgZXZlbnQuZGF0YVRyYW5zZmVyLmVmZmVjdEFsbG93ZWQgPSB0aGlzLmRyYWdFZmZlY3Q7XHJcbiAgICAgICAgICAgIGlmICghdGhpcy5pc0lFKCkpIHtcclxuICAgICAgICAgICAgICAgIGV2ZW50LmRhdGFUcmFuc2Zlci5zZXREYXRhKFwibWFrZUl0VGlja1wiLFwidHJ1ZVwiKTsvLyB0aGlzIGlzIG5lZWRlZCBqdXN0IHRvIG1ha2UgZHJhZy9kcm9wIGV2ZW50IHRyaWdnZXIuXHJcbiAgICAgICAgICAgIH1cclxuICAgICAgICAgICAgdGhpcy5kYXRhVHJhbnNmZXIuc2V0RGF0YShcInNvdXJjZVwiLCBkcmFnRXZlbnQpO1xyXG4gICAgICAgICAgICB0aGlzLm9uRHJhZ1N0YXJ0LmVtaXQoZHJhZ0V2ZW50KTtcclxuICAgICAgICB9XHJcbiAgICB9XHJcbiAgICBwcml2YXRlIGlzSUUoKSB7XHJcbiAgICAgICAgY29uc3QgbWF0Y2ggPSBuYXZpZ2F0b3IudXNlckFnZW50LnNlYXJjaCgvKD86RWRnZXxNU0lFfFRyaWRlbnRcXC8uKjsgcnY6KS8pO1xyXG4gICAgICAgIGxldCBpc0lFID0gZmFsc2U7XHJcbiAgICBcclxuICAgICAgICBpZiAobWF0Y2ggIT09IC0xKSB7XHJcbiAgICAgICAgICAgIGlzSUUgPSB0cnVlO1xyXG4gICAgICAgIH1cclxuICAgICAgICByZXR1cm4gaXNJRTtcclxuICAgIH1cclxuICAgIFxyXG4gICAgQEhvc3RMaXN0ZW5lcignZG9jdW1lbnQ6ZHJhZ292ZXInLCBbJyRldmVudCddKSBcclxuICAgIGRyYWcoZXZlbnQ6IGFueSkge1xyXG4gICAgICAgIGNvbnN0IGRyYWdFdmVudDogRHJhZ0V2ZW50ID0gdGhpcy5kYXRhVHJhbnNmZXIuZ2V0RGF0YShcInNvdXJjZVwiKTtcclxuXHJcbiAgICAgICAgZHJhZ0V2ZW50LmNsaWVudFggPSBldmVudC5jbGllbnRYO1xyXG4gICAgICAgIGRyYWdFdmVudC5jbGllbnRZID0gZXZlbnQuY2xpZW50WTtcclxuICAgICAgICBcclxuICAgICAgICBpZiAodGhpcy5kcmFnSW5Eb2N1bWVudChkcmFnRXZlbnQpKSB7XHJcbiAgICAgICAgICAgIHRoaXMub25EcmFnLmVtaXQoZHJhZ0V2ZW50KTtcclxuICAgICAgICB9XHJcbiAgICB9XHJcbiAgICBcclxuICAgIEBIb3N0TGlzdGVuZXIoJ2RvY3VtZW50OmRyYWdlbmQnLCBbJyRldmVudCddKSBcclxuICAgIGRyYWdFbmQoZXZlbnQ6IGFueSkge1xyXG4gICAgICAgIGV2ZW50LnN0b3BQcm9wYWdhdGlvbigpO1xyXG4gICAgICAgIGNvbnN0IGRyYWdFdmVudDogRHJhZ0V2ZW50ID0gdGhpcy5kYXRhVHJhbnNmZXIuZ2V0RGF0YShcInNvdXJjZVwiKTsgICAgICAgIFxyXG4gICAgICAgIHRoaXMub25EcmFnRW5kLmVtaXQoZHJhZ0V2ZW50KTtcclxuICAgICAgICB0aGlzLmVsLm5hdGl2ZUVsZW1lbnQuY2xhc3NMaXN0LnJlbW92ZShcImRyYWctb3ZlclwiKTtcclxuICAgIH1cclxufVxyXG4iLCJpbXBvcnQgeyBOZ01vZHVsZSwgQ1VTVE9NX0VMRU1FTlRTX1NDSEVNQSB9IGZyb20gJ0Bhbmd1bGFyL2NvcmUnO1xyXG5pbXBvcnQgeyBDb21tb25Nb2R1bGUgfSBmcm9tICdAYW5ndWxhci9jb21tb24nO1xyXG5cclxuaW1wb3J0IHsgRGF0YVRyYW5zZmVyIH0gZnJvbSAnLi9kYXRhdHJhbnNmZXInO1xyXG5pbXBvcnQgeyBEcmFnRGlyZWN0aXZlIH0gZnJvbSAnLi9kcmFnLmRpcmVjdGl2ZSc7XHJcbmltcG9ydCB7IERyYWdJbkRvY3VtZW50RGlyZWN0aXZlIH0gZnJvbSAnLi9kcmFnLW9ubHkuZGlyZWN0aXZlJztcclxuaW1wb3J0IHsgRHJvcERpcmVjdGl2ZSB9IGZyb20gJy4vZHJvcC5kaXJlY3RpdmUnO1xyXG5cclxuQE5nTW9kdWxlKHtcclxuICBpbXBvcnRzOiBbXHJcblx0Q29tbW9uTW9kdWxlXHJcbiAgXSxcclxuICBkZWNsYXJhdGlvbnM6IFtcclxuXHREcmFnRGlyZWN0aXZlLFxyXG4gICAgRHJhZ0luRG9jdW1lbnREaXJlY3RpdmUsXHJcblx0RHJvcERpcmVjdGl2ZVxyXG4gIF0sXHJcbiAgZXhwb3J0czogW1xyXG5cdERyYWdEaXJlY3RpdmUsXHJcblx0RHJhZ0luRG9jdW1lbnREaXJlY3RpdmUsXHJcblx0RHJvcERpcmVjdGl2ZVxyXG4gIF0sXHJcbiAgZW50cnlDb21wb25lbnRzOiBbXHJcbiAgXSxcclxuICBwcm92aWRlcnM6IFtcclxuICAgIERhdGFUcmFuc2ZlclxyXG4gIF0sXHJcbiAgc2NoZW1hczogW0NVU1RPTV9FTEVNRU5UU19TQ0hFTUFdXHJcbn0pXHJcblxyXG5leHBvcnQgY2xhc3MgRHJhZ0Ryb3BNb2R1bGUge31cclxuIl0sIm5hbWVzIjpbIkluamVjdGFibGUiLCJFdmVudEVtaXR0ZXIiLCJEaXJlY3RpdmUiLCJFbGVtZW50UmVmIiwiSW5wdXQiLCJPdXRwdXQiLCJIb3N0TGlzdGVuZXIiLCJOZ01vZHVsZSIsIkNvbW1vbk1vZHVsZSIsIkNVU1RPTV9FTEVNRU5UU19TQ0hFTUEiXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7QUFLQTtRQU9JO3dCQUZvQixFQUFFO1NBRU47Ozs7OztRQUVoQiw4QkFBTzs7Ozs7WUFBUCxVQUFRLElBQVksRUFBRSxLQUFVO2dCQUM1QixJQUFJLENBQUMsSUFBSSxDQUFDLElBQUksQ0FBQyxHQUFHLEtBQUssQ0FBQzthQUMzQjs7Ozs7UUFFRCw4QkFBTzs7OztZQUFQLFVBQVEsSUFBWTtnQkFDaEIsT0FBTyxJQUFJLENBQUMsSUFBSSxDQUFDLElBQUksQ0FBQyxDQUFDO2FBQzFCOztvQkFiSkEsZUFBVTs7OzsyQkFQWDs7Ozs7OztBQ0FBO1FBdUNJLHVCQUNZLGNBQ0E7WUFEQSxpQkFBWSxHQUFaLFlBQVk7WUFDWixPQUFFLEdBQUYsRUFBRTs4QkFuQkQsTUFBTTsrQkFHTCxVQUFDLEtBQWdCLElBQUssT0FBQSxJQUFJLEdBQUE7K0JBR1AsSUFBSUMsaUJBQVksRUFBRTsrQkFHbEIsSUFBSUEsaUJBQVksRUFBRTswQkFHdkIsSUFBSUEsaUJBQVksRUFBRTs4QkFHZCxJQUFJQSxpQkFBWSxFQUFFO1NBSzlDOzs7OztRQUVDLHVDQUFlOzs7O3NCQUFDLEtBQVU7Z0JBQ2pDLE9BQU87b0JBQ0csTUFBTSxFQUFFLElBQUksQ0FBQyxZQUFZLENBQUMsT0FB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
+//# sourceMappingURL=sedeh-drag-enabled.umd.js.map

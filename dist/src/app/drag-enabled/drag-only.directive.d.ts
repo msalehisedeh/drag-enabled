@@ -13,7 +13,7 @@ export declare class DragInDocumentDirective {
     private handle;
     constructor(dataTransfer: DataTransfer, el: ElementRef);
     dragStart(event: any): void;
-    private isIE();
+    private isIE;
     drag(event: any): void;
     dragEnd(event: any): void;
 }

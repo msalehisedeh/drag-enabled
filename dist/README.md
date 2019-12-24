@@ -120,6 +120,7 @@ table {
 
 | Version  |Description                                                                                                                                  |
 |----------|---------------------------------------------------------------------------------------------------------------------------------------------|
+|3.0.0     |Upgrading to Angular 8.                                                                                                                      |
 |2.1.0     |Fixed IE problem. Drag & Drop is now working in IE.                                                                                          |
 |2.0.1     |updated dependencies.                                                                                                                        |
 |2.0.0     |Re-organizing libraries I am providing. Added scope to the project. From now on Accessing through @sedeh/drag-enabled                        |
