@@ -1,0 +1,27 @@
+@import '@sedeh/drag-enabled/lib/drag.scss';
+table {
+    width: 200px;
+    border: 1px solid gray;
+    margin:  0 auto;
+    th {
+        text-align: left;
+        border: 1px solid gray;
+        &.drag-over {
+           background-color: #9b9b9b;
+   
+           .title, .icon {
+               color: #eee;
+           }
+       }
+    }
+}
+p {
+    margin: 0 auto 50px auto;
+    width: fit-content;
+}
+.resources {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #551234;
+    font-weight: bold;
+  }
