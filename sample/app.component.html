@@ -1,32 +1,116 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-</div>
-<div class="resources">
-    <a href="https://www.npmjs.com/package/@sedeh/drag-enabled">npm install &64;sedeh/drag-enabled</a>
-    <p>Tested On Safari, Chrome, Mozilla, and IE11 browsers.</p>
-</div>
-<p>Start dragging table headers</p>
-<table>
-    <thead>
-        <tr>
-            <th *ngFor="let h of tableData.headers"
-				scope="col"
-				[dragEnabled]="dragEnabled.bind(this)"
-				[dropEnabled]="dropEnabled.bind(this)"
-				[medium]="h"
-				(onDragStart)="onDragStart($event)"
-				(onDragEnd)="onDragEnd($event)"
-				(onDrop)="onDrop($event)">
-				{{h.title}}
-			</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr *ngFor="let row of tableData.rows">
-			<td *ngFor="let h of tableData.headers">{{ getRowContent(row, h.key) }}</td>
-		</tr>
-	</tbody>
-</table>
+	<h1>
+	  Welcome to {{ title }}!
+	</h1>
+  </div>
+  <div class="resources">
+	  <a href="https://www.npmjs.com/package/@sedeh/drag-enabled">npm install &64;sedeh/drag-enabled</a>
+	  <p>Tested On Safari, Chrome, Mozilla, and IE11 browsers.</p>
+  </div>
+  <fieldset class="pick-points">
+	  <legend>Options:</legend>
+	  <fieldset class="pick-points">
+		  <legend>Table 1:</legend>
+		  <ng-container *ngFor="let h of tableData.headers; let i = index">
+			  <label for="opt1-{{i}}">
+				  <input 
+					type="checkbox" 
+					name="opt1-{{i}}" 
+					id="opt1-{{i}}" 
+					[value]="h.dargEnabled" 
+					[checked]="h.dargEnabled ? true: null" 
+					(keyup)="keyup($event)"
+					(click)="isChecked($event, h, 'dargEnabled')" /> 
+				  <span>{{h.key}} Darg Enabled</span>
+			  </label> 
+			  <label for="opt1-{{i}}">
+				  <input 
+					type="checkbox" 
+					name="opt1-{{i}}" 
+					id="opt1-{{i}}" 
+					[value]="h.dropEnabled" 
+					[checked]="h.dropEnabled ? true: null" 
+					(keyup)="keyup($event)"
+					(click)="isChecked($event, h, 'dropEnabled')" /> 
+				  <span>{{h.key}} Drop Enabled</span>
+			  </label> 
+		  </ng-container> 
+	  </fieldset>
+	  <fieldset class="pick-points">
+		  <legend>Table 2:</legend>
+		  <ng-container *ngFor="let h of tableData2.headers; let i = index">
+			  <label for="opt2-{{i}}">
+				  <input 
+					type="checkbox" 
+					name="opt2-{{i}}" 
+					id="opt2-{{i}}" 
+					[value]="h.dargEnabled" 
+					[checked]="h.dargEnabled ? true: null" 
+					(keyup)="keyup($event)"
+					(click)="isChecked($event, h, 'dargEnabled')" /> 
+				  <span>{{h.key}} Darg Enabled</span>
+			  </label> 
+			  <label for="opt2-{{i}}">
+				  <input 
+					type="checkbox" 
+					name="opt2-{{i}}" 
+					id="opt2-{{i}}" 
+					[value]="h.dropEnabled" 
+					[checked]="h.dropEnabled ? true: null" 
+					(keyup)="keyup($event)"
+					(click)="isChecked($event, h, 'dropEnabled')" /> 
+				  <span>{{h.key}} Drop Enabled</span>
+			  </label> 
+		  </ng-container> 
+	  </fieldset>
+  </fieldset>
+	
+  <p>Start dragging table headers</p>
+  <div class="sidebyside">
+	  <table>
+		  <thead>
+			  <tr>
+				  <th *ngFor="let h of tableData.headers"
+					  scope="col"
+					  [dragEnabled]="h.dargEnabled"
+					  [dropEnabled]="h.dropEnabled"
+					  [medium]="h"
+					  (onDragStart)="onDragStart($event)"
+					  (onDragEnd)="onDragEnd($event)"
+					  (onDrop)="onDrop($event)">
+					  {{h.title}}
+				  </th>
+			  </tr>
+		  </thead>
+		  <tbody>
+			  <tr *ngFor="let row of tableData.rows">
+				  <td *ngFor="let h of tableData.headers">{{ getRowContent(row, h.key) }}</td>
+			  </tr>
+		  </tbody>
+	  </table>
+	  &nbsp;
+	  <table>
+		  <thead>
+			  <tr>
+				  <th *ngFor="let h of tableData2.headers"
+					  scope="col"
+					  [dragEnabled]="h.dargEnabled"
+					  [dropEnabled]="h.dropEnabled"
+					  [medium]="h"
+					  (onDragStart)="onDragStart($event)"
+					  (onDragEnd)="onDragEnd($event)"
+					  (onDrop)="onDrop($event)">
+					  {{h.title}}
+				  </th>
+			  </tr>
+		  </thead>
+		  <tbody>
+			  <tr *ngFor="let row of tableData2.rows">
+				  <td *ngFor="let h of tableData2.headers">{{ getRowContent(row, h.key) }}</td>
+			  </tr>
+		  </tbody>
+	  </table>
+	  
+  </div>
+  

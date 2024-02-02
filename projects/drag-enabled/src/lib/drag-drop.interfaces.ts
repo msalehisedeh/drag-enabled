@@ -1,6 +1,10 @@
 
+export interface MediumInterface {
+    dargEnabled: boolean,
+    dropEnabled: boolean
+}
 export interface DragEvent {
-    medium: any,
+    medium: MediumInterface,
     node: HTMLElement,
     clientX?: number,
     clientY?: number,
@@ -12,7 +16,7 @@ export interface DragEvent {
 
 export interface DropEvent {
     source: {
-        medium: any,
+        medium: MediumInterface,
         node: HTMLElement,
         clientX?: number,
         clientY?: number,
@@ -22,7 +26,7 @@ export interface DropEvent {
         }
     },
     destination: {
-        medium: any,
+        medium: MediumInterface,
         node: HTMLElement,
         clientX?: number,
         clientY?: number

@@ -10,6 +10,8 @@ You will be able to pass a medium object to the directives. The medium will supp
 
 **NOTE:** Starting with version 2.0.0 you need to import this library through @sedeh/drag-enabled.
 
+**NOTE:** Starting with version 4.0.0 you need to use boolean value to enable/disable srag/drops. Function type for [dragEnabled], [dropEnabled], and [dragInDocument] are decremented and replaced by boolean.
+
 [Comments/Requests](https://github.com/msalehisedeh/drag-enabled/issues) | 
 [NPM](https://www.npmjs.com/package/@sedeh/drag-enabled) | 
 [Live Demo (drag/drop tags)](https://tagbox.stackblitz.io)

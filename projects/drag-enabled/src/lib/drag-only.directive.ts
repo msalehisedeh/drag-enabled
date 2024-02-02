@@ -9,18 +9,17 @@ import {
     HostListener,
     Input,
     Output,
-    EventEmitter
+    OnChanges,
+    EventEmitter,
+    Renderer2
 } from '@angular/core';
 import { DataTransfer } from './datatransfer';
 import { DragEvent } from './drag-drop.interfaces';
 
 @Directive({
-    selector: '[dragInDocument]',
-    host: {
-        '[draggable]': 'true'
-    }
+    selector: '[dragInDocument]'
 })
-export class DragInDocumentDirective {
+export class DragInDocumentDirective implements OnChanges {
     
     @Input("medium")
     medium: any;
@@ -29,7 +28,7 @@ export class DragInDocumentDirective {
     dragEffect = "move";
     
     @Input("dragInDocument")
-    dragInDocument = (event: DragEvent) => true;
+    dragInDocument = false;
     
     @Output()
     onDragStart: EventEmitter<any> = new EventEmitter();
@@ -44,32 +43,44 @@ export class DragInDocumentDirective {
         
     constructor(
         private dataTransfer: DataTransfer,
-        private el: ElementRef
+        private renderer: Renderer2,
+        private host: ElementRef
     ) {
+    }
+    ngOnChanges(changes: any) {
+        if (this.dragInDocument) {
+            this.renderer.setAttribute(this.host.nativeElement, 'draggable', 'true');
+            this.renderer.addClass(this.host.nativeElement, 'grabbable');
+        } else {
+            this.renderer.removeAttribute(this.host.nativeElement, 'draggable');
+            this.renderer.removeClass(this.host.nativeElement, 'grabbable');
+        }
     }
 
     @HostListener('dragstart', ['$event']) 
     dragStart(event: any) {
         event.stopPropagation();
 
-        const rect = this.el.nativeElement.getBoundingClientRect();
-        const dragEvent: DragEvent = {
-            medium: this.medium,
-            node: this.el.nativeElement,
-            clientX: event.clientX,
-            clientY: event.clientY,
-            offset: {
-                x: event.clientX - rect.left, 
-                y: event.clientY - rect.top
+        if (this.medium?.drgable) {
+            const rect = this.host.nativeElement.getBoundingClientRect();
+            const dragEvent: DragEvent = {
+                medium: this.medium,
+                node: this.host.nativeElement,
+                clientX: event.clientX,
+                clientY: event.clientY,
+                offset: {
+                    x: event.clientX - rect.left, 
+                    y: event.clientY - rect.top
+                }
             }
-        }
-        if (this.dragInDocument(dragEvent)) {
-            event.dataTransfer.effectAllowed = this.dragEffect;
-            if (!this.isIE()) {
-                event.dataTransfer.setData("makeItTick","true");// this is needed just to make drag/drop event trigger.
+            if (this.dragInDocument) {
+                event.dataTransfer.effectAllowed = this.dragEffect;
+                if (!this.isIE()) {
+                    event.dataTransfer.setData("makeItTick","true");// this is needed just to make drag/drop event trigger.
+                }
+                this.dataTransfer.setData("source", dragEvent);
+                this.onDragStart.emit(dragEvent);
             }
-            this.dataTransfer.setData("source", dragEvent);
-            this.onDragStart.emit(dragEvent);
         }
     }
     private isIE() {
@@ -86,11 +97,13 @@ export class DragInDocumentDirective {
     drag(event: any) {
         const dragEvent: DragEvent = this.dataTransfer.getData("source");
 
-        dragEvent.clientX = event.clientX;
-        dragEvent.clientY = event.clientY;
-        
-        if (this.dragInDocument(dragEvent)) {
-            this.onDrag.emit(dragEvent);
+        if (dragEvent) {
+            dragEvent.clientX = event.clientX;
+            dragEvent.clientY = event.clientY;
+            
+            if (this.dragInDocument) {
+                this.onDrag.emit(dragEvent);
+            }
         }
     }
     
@@ -99,6 +112,6 @@ export class DragInDocumentDirective {
         event.stopPropagation();
         const dragEvent: DragEvent = this.dataTransfer.getData("source");        
         this.onDragEnd.emit(dragEvent);
-        this.el.nativeElement.classList.remove("drag-over");
+        this.host.nativeElement.classList.remove("drag-over");
     }
 }

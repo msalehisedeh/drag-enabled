@@ -10,6 +10,8 @@ You will be able to pass a medium object to the directives. The medium will supp
 
 **NOTE:** Starting with version 2.0.0 you need to import this library through @sedeh/drag-enabled.
 
+**NOTE:** Starting with version 4.1.0 you need to use boolean value to enable/disable srag/drops. Function type for [dragEnabled], [dropEnabled], and [dragInDocument] are decremented and replaced by boolean.
+
 [Comments/Requests](https://github.com/msalehisedeh/drag-enabled/issues) | 
 [NPM](https://www.npmjs.com/package/@sedeh/drag-enabled) | 
 [Live Demo (drag/drop tags)](https://tagbox.stackblitz.io)
@@ -32,8 +34,12 @@ DEPENDENCIES:
 ## Interfaces
 
 ```javascript
+export interface MediumInterface {
+    dargEnabled: boolean,
+    dropEnabled: boolean
+}
 export interface DragEvent {
-	medium: any,
+	medium: MediumInterface,
 	node: HTMLElement,
 	clientX?: number,
 	clientY?: number,
@@ -46,7 +52,7 @@ export interface DragEvent {
 export interface DropEvent {
 	source: DragEvent,
 	destination: {
-		medium: any,
+		medium: MediumInterface,
 		node: HTMLElement,
 		clientX?: number,
 		clientY?: number
@@ -76,8 +82,8 @@ export class AppModule { }
 ```javascript
 <th scope="col"
 	[medium]="headerInfo"
-	[dragEnabled]="isDragEnabled.bind(this)"
-	[dropEnabled]="dropEnabled.bind(this)"
+	[dragEnabled]="true"
+	[dropEnabled]="true"
 	(onDragStart)="onDragStart($event)"
 	(onDrag)="onDrag($event)"
 	(onDragEnd)="onDragEnd($event)"
@@ -88,17 +94,11 @@ export class AppModule { }
 ```javascript
 import {DragEvent, DropEvent} from '@sedeh/drag-enabled';
 
-isDragEnabled(event: DragEvent) {
-	return event.medium.dragable;
-}
 onDragStart(event: DragEvent){
 }
 onDrag(event: DragEvent){
 }
 onDragEnd(event: DragEvent){
-}
-dropEnabled(event: DropEvent) {
-	return event.destination.medium.dragable;
 }
 onDrop(event: DropEvent){
 	// swapColumns(source.medium, source.node, destination.medium, destination.node);
@@ -107,7 +107,7 @@ onDrop(event: DropEvent){
 
 **SCSS**
 ```
-@import '@sedeh/drag-enabled/lib/drag.scss';
+@import '@sedeh/drag-enabled/drag.scss';
 table {
 	th {
 		&.drag-over {
@@ -123,6 +123,7 @@ table {
 
 | Version  |Description                                                                                                                                  |
 |----------|---------------------------------------------------------------------------------------------------------------------------------------------|
+|4.1.0     |Deprecated use of function to enable/disable drag and drops and replaced it with boolean value                                               |
 |4.0.0     |Upgrading to Angular 15.                                                                                                                     |
 |3.0.0     |Upgrading to Angular 8.                                                                                                                      |
 |2.1.0     |Fixed IE problem. Drag & Drop is now working in IE.                                                                                          |

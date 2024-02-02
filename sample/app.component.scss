@@ -1,4 +1,4 @@
-@import '@sedeh/drag-enabled/lib/drag.scss';
+@import './drag-enabled/drag.scss';
 table {
     width: 200px;
     border: 1px solid gray;
@@ -16,8 +16,23 @@ table {
     }
 }
 p {
-    margin: 0 auto 50px auto;
+    margin: 20px auto 30px auto;
     width: fit-content;
+}
+.sidebyside {
+    display: flex;
+    width: fit-content;
+    margin: 0 auto;
+    flex-direction: column;
+}
+.pick-points {
+    margin: 16px auto 8px auto;
+    border: 2px groove rgba(0, 0, 0, 0.1);
+    display: contents;
+    width: 48%;
+    .pick-points {
+        display: inline-block;
+    }
 }
 .resources {
     text-align: center;
