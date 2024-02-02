@@ -23,7 +23,7 @@ export class DragDirective implements OnChanges {
     dragEffect = "move";
     
     @Input("dragEnabled")
-    dragEnabled!: boolean;
+    dragEnabled = false;
     
     @Output()
     onDragStart: EventEmitter<any> = new EventEmitter();
