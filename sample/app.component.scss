@@ -15,6 +15,13 @@ table {
        }
     }
 }
+.floater {
+    position: absolute;
+    border: 1px solid;
+    padding: 2px;
+    top: 260px;
+    left: calc(100vw/2 - 120px)
+}
 p {
     margin: 20px auto 30px auto;
     width: fit-content;

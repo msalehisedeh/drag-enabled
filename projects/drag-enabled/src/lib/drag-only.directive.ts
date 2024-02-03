@@ -61,7 +61,7 @@ export class DragInDocumentDirective implements OnChanges {
     dragStart(event: any) {
         event.stopPropagation();
 
-        if (this.medium?.drgable) {
+        if (this.dragInDocument) {
             const rect = this.host.nativeElement.getBoundingClientRect();
             const dragEvent: DragEvent = {
                 medium: this.medium,
@@ -73,14 +73,12 @@ export class DragInDocumentDirective implements OnChanges {
                     y: event.clientY - rect.top
                 }
             }
-            if (this.dragInDocument) {
-                event.dataTransfer.effectAllowed = this.dragEffect;
-                if (!this.isIE()) {
-                    event.dataTransfer.setData("makeItTick","true");// this is needed just to make drag/drop event trigger.
-                }
-                this.dataTransfer.setData("source", dragEvent);
-                this.onDragStart.emit(dragEvent);
+            event.dataTransfer.effectAllowed = this.dragEffect;
+            if (!this.isIE()) {
+                event.dataTransfer.setData("makeItTick","true");// this is needed just to make drag/drop event trigger.
             }
+            this.dataTransfer.setData("source", dragEvent);
+            this.onDragStart.emit(dragEvent);
         }
     }
     private isIE() {
@@ -95,23 +93,26 @@ export class DragInDocumentDirective implements OnChanges {
     
     @HostListener('document:dragover', ['$event']) 
     drag(event: any) {
+        event.preventDefault()
         const dragEvent: DragEvent = this.dataTransfer.getData("source");
 
         if (dragEvent) {
             dragEvent.clientX = event.clientX;
             dragEvent.clientY = event.clientY;
-            
-            if (this.dragInDocument) {
-                this.onDrag.emit(dragEvent);
-            }
+            this.onDrag.emit(dragEvent);
         }
     }
     
     @HostListener('document:dragend', ['$event']) 
     dragEnd(event: any) {
         event.stopPropagation();
-        const dragEvent: DragEvent = this.dataTransfer.getData("source");        
-        this.onDragEnd.emit(dragEvent);
+        event.preventDefaul();
+        const dragEvent: DragEvent = this.dataTransfer.getData("source");
+        if (dragEvent) {
+            dragEvent.clientX = event.clientX;
+            dragEvent.clientY = event.clientY;
+            this.onDragEnd.emit(dragEvent);
+        }      
         this.host.nativeElement.classList.remove("drag-over");
     }
 }

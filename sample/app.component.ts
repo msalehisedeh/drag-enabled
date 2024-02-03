@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Renderer2 } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -27,6 +27,10 @@ export class AppComponent {
 			{headerx: 'aa', headery: 'bb'}
 		]
 	}
+
+	constructor(private renderer:Renderer2) {
+    }
+
 	isChecked(event: any, medium: any, key: string) {
 		medium[key] = event.target.checked;
 	}
@@ -38,6 +42,16 @@ export class AppComponent {
 	}
 	getRowContent(row: any, column: string) {
 		return row[column];
+	}
+	onFloaterStart(event: any){
+	}
+	onFloaterEnd(event: any){
+		this.renderer.setStyle(event.medium, 'left', (event.clientX-event.offset.x)+"px");
+		this.renderer.setStyle(event.medium, 'top', (event.clientY-event.offset.y)+"px");
+	}
+	onFloaterDrag(event: any){
+		this.renderer.setStyle(event.medium, 'left', (event.clientX-event.offset.x)+"px");
+		this.renderer.setStyle(event.medium, 'top', (event.clientY-event.offset.y)+"px");
 	}
 	onDragStart(event: any){
 	}

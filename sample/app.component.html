@@ -65,7 +65,17 @@
 		  </ng-container> 
 	  </fieldset>
   </fieldset>
-	
+   
+  <div 
+	  #floater
+	  class="floater" 
+	  [medium]="floater"
+	  [dragInDocument]="true" 
+	  (onDragStart)="onFloaterStart($event)"
+	  (onDragEnd)="onFloaterEnd($event)"
+	  (onDrag)="onFloaterDrag($event)" >
+	  drag this floater anywhere you want
+  </div>
   <p>Start dragging table headers</p>
   <div class="sidebyside">
 	  <table>

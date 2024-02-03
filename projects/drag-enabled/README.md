@@ -34,12 +34,8 @@ DEPENDENCIES:
 ## Interfaces
 
 ```javascript
-export interface MediumInterface {
-    dargEnabled: boolean,
-    dropEnabled: boolean
-}
 export interface DragEvent {
-	medium: MediumInterface,
+	medium: any,
 	node: HTMLElement,
 	clientX?: number,
 	clientY?: number,
@@ -52,7 +48,7 @@ export interface DragEvent {
 export interface DropEvent {
 	source: DragEvent,
 	destination: {
-		medium: MediumInterface,
+		medium: any,
 		node: HTMLElement,
 		clientX?: number,
 		clientY?: number
@@ -107,7 +103,7 @@ onDrop(event: DropEvent){
 
 **SCSS**
 ```
-@import '@sedeh/drag-enabled/drag.scss';
+@import '@sedeh/drag-enabled/assets/drag.scss';
 table {
 	th {
 		&.drag-over {
@@ -123,6 +119,8 @@ table {
 
 | Version  |Description                                                                                                                                  |
 |----------|---------------------------------------------------------------------------------------------------------------------------------------------|
+|4.3.1     |Fixing dragindocument                                                                                                                        |
+|4.3.0     |Fixing dragindocument                                                                                                                        |
 |4.1.0     |Deprecated use of function to enable/disable drag and drops and replaced it with boolean value                                               |
 |4.0.0     |Upgrading to Angular 15.                                                                                                                     |
 |3.0.0     |Upgrading to Angular 8.                                                                                                                      |
