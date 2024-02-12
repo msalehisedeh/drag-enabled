@@ -59,8 +59,9 @@ export class DragInDocumentDirective implements OnChanges {
 
     @HostListener('dragstart', ['$event']) 
     dragStart(event: any) {
-        event.stopPropagation();
-
+        if (typeof event.stopPropagation === 'function') {
+            event.stopPropagation();
+        }
         if (this.dragInDocument) {
             const rect = this.host.nativeElement.getBoundingClientRect();
             const dragEvent: DragEvent = {
@@ -93,7 +94,9 @@ export class DragInDocumentDirective implements OnChanges {
     
     @HostListener('document:dragover', ['$event']) 
     drag(event: any) {
-        event.preventDefault()
+        if (typeof event.preventDefault === 'function') {
+            event.preventDefault()
+        }
         const dragEvent: DragEvent = this.dataTransfer.getData("source");
 
         if (dragEvent) {
@@ -105,8 +108,10 @@ export class DragInDocumentDirective implements OnChanges {
     
     @HostListener('document:dragend', ['$event']) 
     dragEnd(event: any) {
-        event.stopPropagation();
-        event.preventDefaul();
+        if (typeof event.preventDefault === 'function') {
+            event.stopPropagation();
+            event.preventDefaul();
+        }
         const dragEvent: DragEvent = this.dataTransfer.getData("source");
         if (dragEvent) {
             dragEvent.clientX = event.clientX;

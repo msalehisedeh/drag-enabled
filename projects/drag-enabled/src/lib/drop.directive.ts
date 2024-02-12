@@ -68,7 +68,9 @@ export class DropDirective implements OnChanges {
     @HostListener('drop', ['$event'])
     drop(event: any) {
         if (this.dropEnabled) {
-            event.preventDefault();
+            if (typeof event.preventDefault === 'function') {
+                event.preventDefault();
+            }
             this.host.nativeElement.classList.remove("drag-over");
             this.onDrop.emit(this.createDropEvent(event));
         }
@@ -76,7 +78,9 @@ export class DropDirective implements OnChanges {
     
     @HostListener('dragenter', ['$event']) 
     dragEnter(event: any) {
-        event.preventDefault();
+        if (typeof event.preventDefault === 'function') {
+            event.preventDefault();
+        }
         if (this.dropEnabled) {
             event.dataTransfer.dropEffect = this.dropEffect;
 
@@ -89,8 +93,9 @@ export class DropDirective implements OnChanges {
     
     @HostListener('dragleave', ['$event']) 
     dragLeave(event: any) {
-        event.preventDefault();
-                
+        if (typeof event.preventDefault === 'function') {
+            event.preventDefault();
+        }
         this.host.nativeElement.classList.remove("drag-over");
         this.onDragLeave.emit(event);
     }
@@ -98,7 +103,9 @@ export class DropDirective implements OnChanges {
     @HostListener('dragover', ['$event']) 
     dragOver(event: any) {
         if (this.dropEnabled) {
-            event.preventDefault();
+            if (typeof event.preventDefault === 'function') {
+                event.preventDefault();
+            }
             this.host.nativeElement.classList.add("drag-over");
             this.onDragOver.emit(this.createDropEvent(event));
         } else {
